@@ -4,5 +4,5 @@ import com.summer.bookshelf.ui.models.BookModel
 import kotlinx.coroutines.flow.Flow
 
 interface BookRepository {
-    fun fetchBooks(): Flow<List<BookModel>>
+    fun fetchBooks(): Flow<Map<Int, List<BookModel>>>
 }

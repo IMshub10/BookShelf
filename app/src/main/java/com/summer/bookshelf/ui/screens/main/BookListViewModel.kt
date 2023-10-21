@@ -15,11 +15,17 @@ class BookListViewModel(
 ) : ViewModel() {
 
     companion object {
-        const val TAG = "MainViewModel"
+        const val TAG = "BookListViewModel"
     }
 
-    private val _books = MutableStateFlow<List<BookModel>?>(null)
+    private val selectedYear = MutableStateFlow<Int?>(null)
+
+    private val _books = MutableStateFlow<Map<Int, List<BookModel>>?>(null)
     val books = _books.asStateFlow()
+
+    fun getBooksByYear(year: Int) = _books.value?.let {
+        it[year]
+    } ?: listOf()
 
     init {
         bookRepository.fetchBooks().map {

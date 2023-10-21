@@ -34,7 +34,8 @@ class BookRepositoryImpl(
                             id = bean.id,
                             image = bean.image,
                             title = bean.title,
-                            score = bean.score.toString()
+                            score = bean.score.toString(),
+                            year = calendar[Calendar.YEAR],
                         )
                     )
 
@@ -49,20 +50,25 @@ class BookRepositoryImpl(
                         )
                     )
                 }
-                emit(resultList)
+                emit(resultList.groupBy {
+                    it.year
+                }.toSortedMap())
             } else {
                 emit(localBooks.map {
                     BookModel(
                         id = it.id,
                         image = it.image,
                         title = it.title,
-                        score = it.score.toString()
+                        score = it.score.toString(),
+                        year = it.publishedChapterYear
                     )
-                })
+                }.groupBy {
+                    it.year
+                }.toSortedMap())
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            emit(listOf())
+            emit(hashMapOf<Int, List<BookModel>>())
         }
     }.flowOn(Dispatchers.IO)
 

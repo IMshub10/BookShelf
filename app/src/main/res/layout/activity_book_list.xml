@@ -19,13 +19,22 @@
             app:layout_constraintTop_toTopOf="parent"
             app:titleTextColor="?label" />
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_actBookList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tb_actBookList"
+            app:tabMode="scrollable" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_actBookList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tb_actBookList"
+            app:layout_constraintTop_toBottomOf="@+id/tab_actBookList"
             tools:listitem="@layout/item_book" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
