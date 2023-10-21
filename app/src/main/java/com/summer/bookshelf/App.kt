@@ -3,6 +3,7 @@ package com.summer.bookshelf
 import android.app.Application
 import com.summer.bookshelf.di.localDataSourceModule
 import com.summer.bookshelf.di.remoteModule
+import com.summer.bookshelf.di.repositoryModule
 import com.summer.bookshelf.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -18,6 +19,7 @@ class App : Application() {
             modules(
                 remoteModule,
                 localDataSourceModule,
+                repositoryModule,
                 viewModelModule
             )
         }
