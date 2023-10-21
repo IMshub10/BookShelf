@@ -1,4 +1,4 @@
-package com.summer.bookshelf.screens.main
+package com.summer.bookshelf.ui.screens.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

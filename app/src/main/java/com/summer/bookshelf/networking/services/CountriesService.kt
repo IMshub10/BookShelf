@@ -8,5 +8,5 @@ import retrofit2.http.GET
 interface CountriesService {
 
     @GET(COUNTRIES)
-    suspend fun fetchCountries(): Response<CountriesResponse?>
+    suspend fun fetchCountries(): Response<CountriesResponse>
 }

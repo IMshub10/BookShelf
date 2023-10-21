@@ -1,14 +1,14 @@
 package com.summer.bookshelf.networking.beans
 
 
+import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
-import org.json.JSONObject
 
 data class CountriesResponse(
     @SerializedName("access")
     val access: String?,
     @SerializedName("data")
-    val data: JSONObject?,
+    val data: JsonObject,
     @SerializedName("status")
     val status: String?,
     @SerializedName("status-code")

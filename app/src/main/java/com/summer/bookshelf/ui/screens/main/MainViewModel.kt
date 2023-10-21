@@ -1,4 +1,4 @@
-package com.summer.bookshelf.screens.main
+package com.summer.bookshelf.ui.screens.main
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

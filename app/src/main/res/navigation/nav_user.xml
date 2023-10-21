@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_user"
+    app:startDestination="@id/registerFrag">
+
+    <fragment
+        android:id="@+id/registerFrag"
+        android:name="com.summer.bookshelf.ui.screens.user.frags.RegisterFrag"
+        android:label="RegisterFrag"
+        tools:layout="@layout/frag_register"/>
+</navigation>
