@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="com.summer.bookshelf.ui.dialogs.HelperAlertDialog.UiModels" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:elevation="8dp"
+            app:cardCornerRadius="16dp"
+            android:background="?android:colorBackground">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/pg_dialogAlert_progress"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/green_light" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_dialogAlert_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/spacing_x_medium"
+                    android:background="@drawable/round_check_circle_24"
+                    android:tint="#E84A4A" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_dialogAlert_title"
+                    style="@style/text_title_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_x_medium"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:gravity="center"
+                    android:text="@{model.titleText}"
+                    android:visibility="@{model.titleText.empty ? View.GONE : View.VISIBLE}"
+                    tools:text="Error!" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_dialogAlert_content"
+                    style="@style/text_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_x_medium"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:gravity="center"
+                    app:setSpannableText="@{model.contentText}"
+                    tools:text="+91 9823668388 is not registered, Please click on 'Register' button to create new account" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_dialogAlert_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_x_medium"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:layout_marginBottom="@dimen/spacing_x_medium">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_dialogAlert_cancelButton"
+                        style="@style/text_body"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="@dimen/spacing_tiny"
+                        android:background="@drawable/ripple_rounded_rect_stroke_primary_radius_small"
+                        android:gravity="center"
+                        android:paddingVertical="12dp"
+                        android:text="@{model.cancelText}"
+                        android:textAllCaps="false"
+                        android:textColor="?colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_dialogAlert_confirmButton"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_dialogAlert_confirmButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Cancel" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_dialogAlert_confirmButton"
+                        style="@style/text_body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_tiny"
+                        android:background="@drawable/ripple_rounded_rect_primary_solid_small_corners"
+                        android:gravity="center"
+                        android:paddingVertical="12dp"
+                        android:text="@{model.confirmText}"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_dialogAlert_cancelButton"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="OK" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_dialogAlert_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="end"
+            android:background="@drawable/ripple_rounded_rect_solid_white"
+            android:elevation="12dp"
+            app:srcCompat="@drawable/ic_close" />
+
+    </FrameLayout>
+</layout>
