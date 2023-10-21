@@ -8,10 +8,8 @@ data class BookBean(
     val id: String?,
     @SerializedName("image")
     val image: String?,
-    @SerializedName("popularity")
-    val popularity: Int?,
     @SerializedName("publishedChapterDate")
-    val publishedChapterDate: Int?,
+    val publishedChapterDate: Long?,
     @SerializedName("score")
     val score: Double?,
     @SerializedName("title")

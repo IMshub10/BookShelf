@@ -5,12 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.summer.bookshelf.persistence.db.daos.AppDao
+import com.summer.bookshelf.persistence.db.entities.BookEntity
 import com.summer.bookshelf.persistence.db.entities.CountryEntity
 import com.summer.bookshelf.persistence.db.entities.UserEntity
 
 
 @Database(
-    entities = [CountryEntity::class, UserEntity::class],
+    entities = [CountryEntity::class, UserEntity::class, BookEntity::class],
     version = 1,
     exportSchema = false
 )

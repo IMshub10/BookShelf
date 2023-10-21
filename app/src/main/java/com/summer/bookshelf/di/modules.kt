@@ -4,16 +4,19 @@ import android.app.Application
 import com.summer.bookshelf.networking.remotes.BookServiceMaker
 import com.summer.bookshelf.networking.remotes.CountriesServiceMaker
 import com.summer.bookshelf.networking.remotes.IPServiceMaker
+import com.summer.bookshelf.networking.services.BookService
 import com.summer.bookshelf.networking.services.CountriesService
 import com.summer.bookshelf.networking.services.IPService
 import com.summer.bookshelf.persistence.db.AppDatabase
 import com.summer.bookshelf.persistence.db.daos.AppDao
 import com.summer.bookshelf.persistence.pref.Preference
+import com.summer.bookshelf.repositories.BookRepository
+import com.summer.bookshelf.repositories.BookRepositoryImpl
 import com.summer.bookshelf.repositories.LoginRepository
 import com.summer.bookshelf.repositories.LoginRepositoryImpl
 import com.summer.bookshelf.repositories.SplashRepository
 import com.summer.bookshelf.repositories.SplashRepositoryImpl
-import com.summer.bookshelf.ui.screens.main.MainViewModel
+import com.summer.bookshelf.ui.screens.main.BookListViewModel
 import com.summer.bookshelf.ui.screens.splash.SplashViewModel
 import com.summer.bookshelf.ui.screens.user.frags.LoginViewModel
 import com.summer.bookshelf.ui.screens.user.frags.RegisterViewModel
@@ -66,12 +69,21 @@ val repositoryModule = module {
         preference = preference
     )
 
+    fun provideBookRepository(
+        bookService: BookService,
+        appDao: AppDao
+    ): BookRepository = BookRepositoryImpl(bookService = bookService, appDao = appDao)
+
     single { provideSplashRepository(preference = get()) }
 
     single {
         provideSignUpRepository(
             countriesService = get(), ipService = get(), appDao = get(), preference = get()
         )
+    }
+
+    single {
+        provideBookRepository(bookService = get(), appDao = get())
     }
 }
 
@@ -86,6 +98,6 @@ val viewModelModule = module {
         RegisterViewModel(loginRepository = get())
     }
     viewModel {
-        MainViewModel(bookService = get(), countriesService = get(), ipService = get())
+        BookListViewModel(bookRepository = get())
     }
 }

@@ -9,7 +9,7 @@ import com.summer.bookshelf.base.ui.BaseActivity
 import com.summer.bookshelf.base.ui.BaseFragment
 import com.summer.bookshelf.databinding.FragLoginBinding
 import com.summer.bookshelf.ui.dialogs.HelperAlertDialog
-import com.summer.bookshelf.ui.screens.main.MainActivity
+import com.summer.bookshelf.ui.screens.main.BookListActivity
 import com.summer.bookshelf.ui.screens.user.states.LoginState
 import com.summer.bookshelf.utils.BiometricResultListener
 import com.summer.bookshelf.utils.LauncherUtils
@@ -65,7 +65,7 @@ class LoginFrag : BaseFragment<FragLoginBinding>(), BiometricResultListener {
                 LoginState.UserLoggedIn -> {
                     LauncherUtils.startActivityWithClearTop(
                         requireActivity(),
-                        MainActivity::class.java
+                        BookListActivity::class.java
                     )
                 }
             }
@@ -93,7 +93,7 @@ class LoginFrag : BaseFragment<FragLoginBinding>(), BiometricResultListener {
     override fun onBiometricSuccess(result: BiometricPrompt.AuthenticationResult) =
         LauncherUtils.startActivityWithClearTop(
             requireActivity(),
-            MainActivity::class.java
+            BookListActivity::class.java
         )
 
     override fun onBiometricError(message: String) =

@@ -33,7 +33,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.screens.main.MainActivity"
+            android:name=".ui.screens.main.BookListActivity"
             android:exported="false" />
     </application>
 
