@@ -1,6 +1,9 @@
 package com.summer.bookshelf.ui.screens.main
 
 import android.os.Bundle
+import android.widget.AbsListView.RecyclerListener
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.summer.bookshelf.R
 import com.summer.bookshelf.base.ui.BaseActivity
@@ -32,27 +35,24 @@ class BookListActivity : BaseActivity<ActivityBookListBinding>() {
 
     private fun listeners() {
         with(mBinding) {
-            tabActBookList.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    tab?.text?.let {
-                        val year = try {
-                            it.toString().toInt()
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                            null
-                        }
-                        year?.let {
-                            adapter.submitList(viewModel.getBooksByYear(year))
+            rvActBookList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                }
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val firstVisiblePosition =
+                        (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+
+                    if (firstVisiblePosition in 0..< adapter.currentList.size) {
+                        val visibleYear = adapter.currentList[firstVisiblePosition].year
+                        viewModel.bookYears.value?.indexOf(visibleYear)?.let {
+                            tabActBookList.getTabAt(it)?.select()
                         }
                     }
                 }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-
-                }
-
             })
         }
     }
@@ -72,9 +72,14 @@ class BookListActivity : BaseActivity<ActivityBookListBinding>() {
     }
 
     private fun observe() {
+        collectLatestFlow(viewModel.bookYears) {
+            it?.let {
+                setUpTabs(it)
+            }
+        }
         collectLatestFlow(viewModel.books) {
             it?.let {
-                setUpTabs(it.keys)
+                adapter.submitList(it)
             }
         }
     }

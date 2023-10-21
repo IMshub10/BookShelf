@@ -18,18 +18,18 @@ class BookListViewModel(
         const val TAG = "BookListViewModel"
     }
 
-    private val selectedYear = MutableStateFlow<Int?>(null)
+    private val _booksYears = MutableStateFlow<Set<Int>?>(null)
+    val bookYears = _booksYears.asStateFlow()
 
-    private val _books = MutableStateFlow<Map<Int, List<BookModel>>?>(null)
+    private val _books = MutableStateFlow<List<BookModel>?>(null)
     val books = _books.asStateFlow()
-
-    fun getBooksByYear(year: Int) = _books.value?.let {
-        it[year]
-    } ?: listOf()
 
     init {
         bookRepository.fetchBooks().map {
-            _books.value = it
+            _booksYears.value = it.keys
+            _books.value = it.flatMap { flatMap ->
+                flatMap.value
+            }
         }.launchIn(viewModelScope)
     }
 }

@@ -52,7 +52,9 @@ class BookRepositoryImpl(
                 }
                 emit(resultList.groupBy {
                     it.year
-                }.toSortedMap())
+                }.toSortedMap(comparator = { o1, o2 ->
+                    o1 - o2
+                }))
             } else {
                 emit(localBooks.map {
                     BookModel(
@@ -64,7 +66,9 @@ class BookRepositoryImpl(
                     )
                 }.groupBy {
                     it.year
-                }.toSortedMap())
+                }.toSortedMap(comparator = { o1, o2 ->
+                    o1 - o2
+                }))
             }
         } catch (e: Exception) {
             e.printStackTrace()
