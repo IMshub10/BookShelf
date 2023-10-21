@@ -1,9 +1,141 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.BookShelf" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <style name="Base.Theme.BookShelf" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/blue_light</item>
+        <item name="colorOnPrimary">@color/grey_darkest</item>
+
+        <item name="label">@color/charcoal</item>
+        <item name="labelSecondary">@color/translucent_0.6</item>
+        <item name="boxBackground">@color/background_light</item>
     </style>
 
     <style name="Theme.BookShelf" parent="Base.Theme.BookShelf" />
+
+    <style name="SpannableDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/spannable_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/spannable_fade_out</item>
+
+    </style>
+
+
+    <!--Text Styles==============================================================================-->
+    <style name="text_title" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">36sp</item>
+        <item name="android:textColor">?attr/label</item>
+        <item name="android:letterSpacing">0.015</item>
+    </style>
+
+    <style name="text_title_2" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">30sp</item>
+        <item name="android:textColor">?attr/label</item>
+        <item name="android:letterSpacing">0.015</item>
+    </style>
+
+    <style name="text_header" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">17sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">25.5sp</item>
+        <item name="android:letterSpacing">0.012</item>
+        <item name="android:textColor">?attr/label</item>
+    </style>
+
+    <style name="text_header_bold" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">17sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">25.5sp</item>
+        <item name="android:letterSpacing">0.012</item>
+        <item name="android:textColor">?attr/label</item>
+    </style>
+
+    <style name="text_body" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">22.5sp</item>
+        <item name="lineHeight">22.5sp</item>
+        <item name="android:letterSpacing">0.016</item>
+        <item name="android:textColor">?attr/label</item>
+    </style>
+
+    <style name="text_body_bold" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">22.5sp</item>
+        <item name="lineHeight">22.5sp</item>
+        <item name="android:letterSpacing">0.016</item>
+        <item name="android:textColor">?attr/label</item>
+    </style>
+
+    <style name="text_body_secondary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">22.5sp</item>
+        <item name="android:letterSpacing">0.016</item>
+        <item name="android:textColor">?attr/labelSecondary</item>
+    </style>
+
+    <style name="text_caption" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">18sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textColor">?attr/label</item>
+    </style>
+
+    <style name="text_caption_secondary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">18sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textColor">?attr/labelSecondary</item>
+    </style>
+
+
+    <style name="text_body_error" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">22.5sp</item>
+        <item name="android:letterSpacing">0.016</item>
+        <item name="android:textColor">?attr/colorError</item>
+    </style>
+
+    <style name="DropDownOutLine" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeErrorColor">@color/red_light</item>
+        <item name="boxBackgroundColor">?boxBackground</item>
+        <item name="boxStrokeColor">?attr/colorOnPrimary</item>
+        <item name="errorTextColor">@color/error</item>
+        <item name="hintTextColor">?label</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/spacing_x_small</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/spacing_x_small</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/spacing_x_small</item>
+        <item name="boxCornerRadiusTopStart">@dimen/spacing_x_small</item>
+        <item name="hintTextAppearance">@style/HelperTextAppearance</item>
+        <item name="errorTextAppearance">@style/HelperTextAppearance</item>
+        <item name="helperTextTextAppearance">@style/HelperTextAppearance</item>
+    </style>
+
+    <style name="InputTextOutLine" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeErrorColor">@color/red_light</item>
+        <item name="boxBackgroundColor">?boxBackground</item>
+        <item name="boxStrokeColor">?attr/colorOnPrimary</item>
+        <item name="errorTextColor">@color/error</item>
+        <item name="hintTextColor">?label</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/spacing_x_small</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/spacing_x_small</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/spacing_x_small</item>
+        <item name="boxCornerRadiusTopStart">@dimen/spacing_x_small</item>
+        <item name="hintTextAppearance">@style/HelperTextAppearance</item>
+        <item name="errorTextAppearance">@style/HelperTextAppearance</item>
+        <item name="helperTextTextAppearance">@style/HelperTextAppearance</item>
+    </style>
+
+    <style name="HelperTextAppearance" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?attr/label</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">?attr/label</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
 </resources>
