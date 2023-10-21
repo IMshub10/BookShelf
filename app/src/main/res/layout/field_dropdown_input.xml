@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="inputModel"
+            type="com.summer.bookshelf.ui.inputs.DropdownInputModel" />
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_fieldDropdown_lay"
+            style="@style/DropDownOutLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_atom"
+            android:focusable="true"
+            android:textColorHint="@color/grey"
+            android:textSize="13sp"
+            app:hint="@{inputModel.hint}"
+            app:errorEnabled="true"
+            app:setError="@{inputModel.errorString}"
+            app:required="@{inputModel.required}">
+
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/acv_fieldDropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none"
+                android:padding="@dimen/spacing_small"
+                android:textSize="15sp"
+                app:setUpDropDown="@{inputModel}"
+                tools:text="Name" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
