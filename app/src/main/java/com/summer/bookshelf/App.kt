@@ -1,6 +1,7 @@
 package com.summer.bookshelf
 
 import android.app.Application
+import com.summer.bookshelf.di.localDataSourceModule
 import com.summer.bookshelf.di.remoteModule
 import com.summer.bookshelf.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -16,6 +17,7 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 remoteModule,
+                localDataSourceModule,
                 viewModelModule
             )
         }
