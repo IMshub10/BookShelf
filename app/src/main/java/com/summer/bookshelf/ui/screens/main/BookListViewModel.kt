@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.summer.bookshelf.persistence.db.entities.BookEntity
 import com.summer.bookshelf.repositories.BookRepository
+import com.summer.bookshelf.ui.models.BookModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -17,7 +18,7 @@ class BookListViewModel(
         const val TAG = "MainViewModel"
     }
 
-    private val _books = MutableStateFlow<List<BookEntity>?>(null)
+    private val _books = MutableStateFlow<List<BookModel>?>(null)
     val books = _books.asStateFlow()
 
     init {

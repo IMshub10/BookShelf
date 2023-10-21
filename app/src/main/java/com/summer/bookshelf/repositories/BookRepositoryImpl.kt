@@ -3,6 +3,7 @@ package com.summer.bookshelf.repositories
 import com.summer.bookshelf.networking.services.BookService
 import com.summer.bookshelf.persistence.db.daos.AppDao
 import com.summer.bookshelf.persistence.db.entities.BookEntity
+import com.summer.bookshelf.ui.models.BookModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -18,7 +19,7 @@ class BookRepositoryImpl(
             val localBooks = appDao.getAllBooks()
             if (localBooks.isEmpty()) {
                 val remoteBooks = bookService.fetchBookList()
-                val resultList = mutableListOf<BookEntity>()
+                val resultList = mutableListOf<BookModel>()
                 val calendar = Calendar.getInstance()
 
                 loop@ for (bean in remoteBooks.body()!!) {
@@ -28,21 +29,36 @@ class BookRepositoryImpl(
 
                     calendar.timeInMillis = bean.publishedChapterDate * 1000
 
-                    BookEntity(
-                        id = bean.id,
-                        publishedChapterDate = bean.publishedChapterDate,
-                        image = bean.image,
-                        publishedChapterYear = calendar[Calendar.YEAR],
-                        score = bean.score,
-                        title = bean.title
-                    ).run {
-                        resultList.add(this)
-                        appDao.insertIgnoreBook(this)
-                    }
+                    resultList.add(
+                        BookModel(
+                            id = bean.id,
+                            image = bean.image,
+                            title = bean.title,
+                            score = bean.score.toString()
+                        )
+                    )
+
+                    appDao.insertIgnoreBook(
+                        BookEntity(
+                            id = bean.id,
+                            publishedChapterDate = bean.publishedChapterDate,
+                            image = bean.image,
+                            publishedChapterYear = calendar[Calendar.YEAR],
+                            score = bean.score,
+                            title = bean.title
+                        )
+                    )
                 }
                 emit(resultList)
             } else {
-                emit(localBooks)
+                emit(localBooks.map {
+                    BookModel(
+                        id = it.id,
+                        image = it.image,
+                        title = it.title,
+                        score = it.score.toString()
+                    )
+                })
             }
         } catch (e: Exception) {
             e.printStackTrace()

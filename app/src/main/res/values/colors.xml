@@ -29,4 +29,6 @@
 
     <color name="background_light">#fafafa</color>
     <color name="background_dark">#2c2c2e</color>
+
+    <color name="orange_light">#ff9500</color>
 </resources>

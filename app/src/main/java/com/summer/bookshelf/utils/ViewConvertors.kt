@@ -2,10 +2,13 @@ package com.summer.bookshelf.utils
 
 import android.text.SpannableString
 import androidx.annotation.StringRes
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.textfield.TextInputLayout
 import com.summer.bookshelf.R
 import com.summer.bookshelf.ui.inputs.DropdownInputModel
@@ -67,11 +70,27 @@ object ViewConvertors {
         setRequired(required)
     }
 
-
     @JvmStatic
     @BindingAdapter("setError")
     fun TextInputLayout.setError(@StringRes error: Int?) {
         this.error = error?.let { context.getString(it) }
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("setImage")
+    fun AppCompatImageView.setImage(imageUrl: String?) {
+        imageUrl?.let {
+            Glide.with(context).load(imageUrl)
+                .fitCenter()
+                .error(R.drawable.ic_launcher_foreground)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(this)
+        } ?: Glide.with(context).load(R.drawable.ic_launcher_foreground)
+            .fitCenter()
+            .error(R.drawable.ic_launcher_foreground)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(this)
     }
 
 }
