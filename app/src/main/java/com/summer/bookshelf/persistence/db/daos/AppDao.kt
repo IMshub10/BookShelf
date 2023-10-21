@@ -19,4 +19,7 @@ interface AppDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertUser(userEntity: UserEntity)
 
+    @Query("Select count(1) from users where email = :email and password = :password")
+    fun isUserNamePassCorrect(email: String, password: String) : Int
+
 }

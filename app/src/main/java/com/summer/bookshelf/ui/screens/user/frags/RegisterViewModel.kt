@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.summer.bookshelf.R
 import com.summer.bookshelf.persistence.db.entities.UserEntity
-import com.summer.bookshelf.repositories.SignUpRepository
+import com.summer.bookshelf.repositories.LoginRepository
 import com.summer.bookshelf.ui.inputs.DropdownInputModel
 import com.summer.bookshelf.ui.inputs.TextInputModel
 import com.summer.bookshelf.ui.screens.user.states.RegisterFragState
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class RegisterViewModel(private val signUpRepository: SignUpRepository) : ViewModel() {
+class RegisterViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
     private val _state = MutableStateFlow<RegisterFragState>(RegisterFragState.Idle)
     val state: StateFlow<RegisterFragState> = _state.asStateFlow()
@@ -55,13 +55,13 @@ class RegisterViewModel(private val signUpRepository: SignUpRepository) : ViewMo
     init {
         _state.value = RegisterFragState.Loading("Loading Countries")
 
-        signUpRepository.fetchCountryList().map { list ->
+        loginRepository.fetchCountryList().map { list ->
 
             countryInputModel.dropdownList = list
             countryInputModel.notifyChange()
 
             if (list.isNotEmpty()) {
-                signUpRepository.fetchDefaultCountry().map {
+                loginRepository.fetchDefaultCountry().map {
 
                     _state.value = RegisterFragState.Idle
 
@@ -79,7 +79,7 @@ class RegisterViewModel(private val signUpRepository: SignUpRepository) : ViewMo
     }
 
     fun validateNSave() {
-        _state.value = RegisterFragState.SavingData("Saving")
+        _state.value = RegisterFragState.Loading("Saving")
 
         var isValid = true
 
@@ -105,7 +105,7 @@ class RegisterViewModel(private val signUpRepository: SignUpRepository) : ViewMo
 
         if (isValid) {
             viewModelScope.launch(Dispatchers.IO) {
-                signUpRepository.insertUser(
+                loginRepository.insertUser(
                     UserEntity(
                         email = emailInputModel.editTextContent!!,
                         name = nameInputModel.editTextContent!!,

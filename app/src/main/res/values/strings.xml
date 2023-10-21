@@ -10,4 +10,8 @@
     <string name="invalid_input">Invalid Input</string>
     <string name="register">Register</string>
     <string name="save">Save</string>
+    <string name="login">Login</string>
+    <string name="login_with_fingerprint">Login with Fingerprint</string>
+    <string name="or">or</string>
+    <string name="authenticate_with_biometric">Complete authentication with your fingerprint!</string>
 </resources>

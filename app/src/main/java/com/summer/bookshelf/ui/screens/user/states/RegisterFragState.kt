@@ -8,7 +8,5 @@ sealed class RegisterFragState {
 
     data class Error(var message: String) : RegisterFragState()
 
-    data class SavingData(var message: String) : RegisterFragState()
-
     data class SaveComplete(var message: String) : RegisterFragState()
 }

@@ -1,9 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.summer.bookshelf.ui.screens.user.frags.LoginViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/spacing_tiny"
+            android:fillViewport="true"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_fragLogin_title"
+                    style="@style/text_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_x_medium"
+                    android:layout_marginTop="@dimen/spacing_x_large"
+                    android:gravity="center"
+                    android:text="@string/login"
+                    android:textSize="30sp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <include
+                    android:id="@+id/et_fragLogin_email"
+                    layout="@layout/field_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_x_medium"
+                    android:layout_marginTop="@dimen/spacing_x_medium"
+                    app:inputModel="@{model.emailInputModel}"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_fragLogin_title" />
+
+                <include
+                    android:id="@+id/et_fragLogin_password"
+                    layout="@layout/field_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_x_medium"
+                    android:layout_marginTop="@dimen/spacing_x_medium"
+                    app:inputModel="@{model.passwordInputModel}"
+                    app:layout_constraintTop_toBottomOf="@+id/et_fragLogin_email" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mb_fragLogin_login"
+                    style="@style/text_title_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_x_medium"
+                    android:layout_marginTop="@dimen/spacing_x_medium"
+                    android:text="@string/login"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_fragLogin_fingerPrint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_fragLogin_password" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_fragLogin_fingerPrint"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginHorizontal="@dimen/spacing_x_medium"
+                    android:layout_marginTop="@dimen/spacing_x_medium"
+                    android:background="@drawable/ripple_rounded_rect_stroke_primary_radius_small"
+                    android:padding="@dimen/spacing_tiny"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_fragLogin_password"
+                    app:srcCompat="@drawable/ic_fingerprint" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_fragLogin_or"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_x_medium"
+                    android:gravity="center"
+                    android:text="@string/or"
+                    android:textSize="24sp"
+                    app:layout_constraintTop_toBottomOf="@+id/mb_fragLogin_login" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mb_fragLogin_register"
+                    style="@style/text_title_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_x_medium"
+                    android:layout_marginTop="@dimen/spacing_x_medium"
+                    android:text="@string/register"
+                    android:textColor="?colorPrimary"
+                    app:backgroundTint="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_fragLogin_or"
+                    app:strokeColor="?colorPrimary"
+                    app:strokeWidth="1dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

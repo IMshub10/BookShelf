@@ -9,9 +9,13 @@ import com.summer.bookshelf.networking.services.IPService
 import com.summer.bookshelf.persistence.db.AppDatabase
 import com.summer.bookshelf.persistence.db.daos.AppDao
 import com.summer.bookshelf.persistence.pref.Preference
-import com.summer.bookshelf.repositories.SignUpRepository
-import com.summer.bookshelf.repositories.SignUpRepositoryImpl
+import com.summer.bookshelf.repositories.LoginRepository
+import com.summer.bookshelf.repositories.LoginRepositoryImpl
+import com.summer.bookshelf.repositories.SplashRepository
+import com.summer.bookshelf.repositories.SplashRepositoryImpl
 import com.summer.bookshelf.ui.screens.main.MainViewModel
+import com.summer.bookshelf.ui.screens.splash.SplashViewModel
+import com.summer.bookshelf.ui.screens.user.frags.LoginViewModel
 import com.summer.bookshelf.ui.screens.user.frags.RegisterViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -46,22 +50,40 @@ val remoteModule = module {
 }
 
 val repositoryModule = module {
+
+    fun provideSplashRepository(preference: Preference): SplashRepository =
+        SplashRepositoryImpl(preference = preference)
+
     fun provideSignUpRepository(
-        countriesService: CountriesService, ipService: IPService, appDao: AppDao
-    ): SignUpRepository = SignUpRepositoryImpl(
-        countriesService = countriesService, ipService = ipService, appDao = appDao
+        countriesService: CountriesService,
+        ipService: IPService,
+        appDao: AppDao,
+        preference: Preference
+    ): LoginRepository = LoginRepositoryImpl(
+        countriesService = countriesService,
+        ipService = ipService,
+        appDao = appDao,
+        preference = preference
     )
+
+    single { provideSplashRepository(preference = get()) }
 
     single {
         provideSignUpRepository(
-            countriesService = get(), ipService = get(), appDao = get()
+            countriesService = get(), ipService = get(), appDao = get(), preference = get()
         )
     }
 }
 
 val viewModelModule = module {
     viewModel {
-        RegisterViewModel(signUpRepository = get())
+        SplashViewModel(splashRepository = get())
+    }
+    viewModel {
+        LoginViewModel(loginRepository = get())
+    }
+    viewModel {
+        RegisterViewModel(loginRepository = get())
     }
     viewModel {
         MainViewModel(bookService = get(), countriesService = get(), ipService = get())

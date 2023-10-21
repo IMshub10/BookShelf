@@ -1,6 +1,7 @@
 package com.summer.bookshelf.ui.screens.user.frags
 
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
 import com.summer.bookshelf.R
 import com.summer.bookshelf.base.ui.BaseActivity
 import com.summer.bookshelf.base.ui.BaseFragment
@@ -48,19 +49,13 @@ class RegisterFrag : BaseFragment<FragRegisterBinding>() {
                     }
                 }
 
-                is RegisterFragState.SavingData -> {
-                    with((requireActivity() as BaseActivity<*>)) {
-                        showHelperDialog(HelperAlertDialog.DialogType.PROGRESS)
-                        helperDialog?.setTitleText(it.message)
-                    }
-                }
-
                 is RegisterFragState.SaveComplete -> {
                     with((requireActivity() as BaseActivity<*>)) {
                         showHelperDialog(HelperAlertDialog.DialogType.SUCCESS)
                         helperDialog?.setTitleText(it.message)
                         helperDialog?.setConfirmClickListener {
-                            requireActivity().finish()
+                            if (findNavController().currentDestination?.id == R.id.registerFrag)
+                                findNavController().navigateUp()
                         }
                     }
                 }
@@ -73,6 +68,10 @@ class RegisterFrag : BaseFragment<FragRegisterBinding>() {
         with(mBinding) {
             mbFragRegSave.setOnClickListener {
                 viewModel.validateNSave()
+            }
+            ivFragRegBack.setOnClickListener {
+                if (findNavController().currentDestination?.id == R.id.registerFrag)
+                    findNavController().navigateUp()
             }
         }
     }

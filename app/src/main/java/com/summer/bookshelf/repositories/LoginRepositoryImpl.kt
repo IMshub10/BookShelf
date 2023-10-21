@@ -5,16 +5,18 @@ import com.summer.bookshelf.networking.services.IPService
 import com.summer.bookshelf.persistence.db.daos.AppDao
 import com.summer.bookshelf.persistence.db.entities.CountryEntity
 import com.summer.bookshelf.persistence.db.entities.UserEntity
+import com.summer.bookshelf.persistence.pref.Preference
 import com.summer.bookshelf.ui.models.DropdownModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class SignUpRepositoryImpl(
+class LoginRepositoryImpl(
     private val countriesService: CountriesService,
     private val ipService: IPService,
-    private val appDao: AppDao
-) : SignUpRepository {
+    private val appDao: AppDao,
+    private val preference: Preference
+) : LoginRepository {
 
     override fun fetchCountryList() = flow {
         try {
@@ -78,9 +80,19 @@ class SignUpRepositoryImpl(
         }
     }
 
-    override suspend fun insertUser(userEntity: UserEntity)  = appDao.insertUser(userEntity)
+    override suspend fun insertUser(userEntity: UserEntity) = appDao.insertUser(userEntity)
 
+    override suspend fun isUserNamePassCorrect(
+        email: String,
+        password: String
+    ) = appDao.isUserNamePassCorrect(
+        email,
+        password
+    ) > 0
 
+    override suspend fun setUserLoginStatus(loggedIn: Boolean) {
+        preference.setUserLoginStatus(loggedIn)
+    }
 
 
 }
