@@ -102,7 +102,7 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
         }
 
         if (!passwordInputModel.isValid()) {
-            passwordInputModel.setError(R.string.invalid_input)
+            passwordInputModel.setError(R.string.invalid_password)
             isValid = false
         }
 
