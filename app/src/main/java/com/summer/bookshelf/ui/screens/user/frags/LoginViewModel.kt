@@ -33,7 +33,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         },
     )
 
-    fun validateNLogin() {
+    fun validateNLogin(withFingerPrint: Boolean) {
         _state.value = LoginState.Loading("Logging In...")
 
         var isValid = true
@@ -43,22 +43,21 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             isValid = false
         }
 
-        if (!passwordInputModel.isValid()) {
+        if (!passwordInputModel.isValid() && !withFingerPrint) { //don't validate password with fingerprint
             passwordInputModel.setError(R.string.invalid_input)
             isValid = false
         }
         if (isValid) {
             viewModelScope.launch(Dispatchers.IO) {
-                val isUserNamePassCorrect = loginRepository.isUserNamePassCorrect(
+                val userId = loginRepository.getUserByCredentials(
                     emailInputModel.editTextContent!!,
-                    passwordInputModel.editTextContent!!
+                    if (withFingerPrint) null else passwordInputModel.editTextContent!!
                 )
-                loginRepository.setUserLoginStatus(true)
-
-                if (isUserNamePassCorrect) {
+                if (userId != 0) {
+                    loginRepository.setLoggedInUserId(userId)
                     _state.value = LoginState.UserLoggedIn
                 } else {
-                    _state.value = LoginState.Error("Username password does not match")
+                    _state.value = LoginState.Error("User not found!")
                 }
             }
         } else {

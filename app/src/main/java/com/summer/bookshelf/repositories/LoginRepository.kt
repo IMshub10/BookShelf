@@ -12,9 +12,9 @@ interface LoginRepository {
 
     suspend fun insertUser(userEntity: UserEntity)
 
-    suspend fun isUserNamePassCorrect(email: String, password: String): Boolean
+    suspend fun getUserByCredentials(email: String, password: String?): Int
 
-    suspend fun setUserLoginStatus(loggedIn: Boolean)
+    suspend fun setLoggedInUserId(userId: Int)
 
     suspend fun checkUserExists(email: String): Boolean
 }

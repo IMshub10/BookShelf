@@ -82,16 +82,16 @@ class LoginRepositoryImpl(
 
     override suspend fun insertUser(userEntity: UserEntity) = appDao.insertUser(userEntity)
 
-    override suspend fun isUserNamePassCorrect(
-        email: String,
-        password: String
-    ) = appDao.isUserNamePassCorrect(
-        email,
-        password
-    ) > 0
+    override suspend fun getUserByCredentials(email: String, password: String?) =
+        if (password != null)
+            appDao.getUserByCredentials(
+                email,
+                password
+            ) ?: 0
+        else appDao.getUserByEmail(email) ?: 0
 
-    override suspend fun setUserLoginStatus(loggedIn: Boolean) =
-        preference.setUserLoginStatus(loggedIn)
+    override suspend fun setLoggedInUserId(userId: Int) =
+        preference.setLoggedInUserId(userId)
 
     override suspend fun checkUserExists(email: String) = appDao.checkUserExists(email)
 

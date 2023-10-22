@@ -23,10 +23,16 @@ interface AppDao {
     @Query("Select * from countries order by name")
     fun fetchCountries(): List<CountryEntity>
 
-    @Query("Select count(1) from users where email = :email and password = :password")
-    fun isUserNamePassCorrect(email: String, password: String) : Int
+    @Query("Select id from users where email = :email and password = :password")
+    fun getUserByCredentials(email: String, password: String) : Int?
+
+    @Query("Select id from users where email = :email")
+    fun getUserByEmail(email: String) : Int?
 
     @Query("Select * from books order by published_chapter_year desc, title ")
     fun getAllBooks(): List<BookEntity>
+
+    @Query("Select count(1) from users where email = :email")
+    fun checkUserExists(email: String): Boolean
 
 }

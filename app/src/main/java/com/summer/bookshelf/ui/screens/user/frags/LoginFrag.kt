@@ -80,7 +80,7 @@ class LoginFrag : BaseFragment<FragLoginBinding>(), BiometricResultListener {
             }
 
             mbFragLoginLogin.setOnClickListener {
-                viewModel.validateNLogin()
+                viewModel.validateNLogin(false)
             }
 
             ivFragLoginFingerPrint.setOnClickListener {
@@ -91,10 +91,7 @@ class LoginFrag : BaseFragment<FragLoginBinding>(), BiometricResultListener {
 
 
     override fun onBiometricSuccess(result: BiometricPrompt.AuthenticationResult) =
-        LauncherUtils.startActivityWithClearTop(
-            requireActivity(),
-            BookListActivity::class.java
-        )
+        viewModel.validateNLogin(true)
 
     override fun onBiometricError(message: String) =
         showShortToast(message)
