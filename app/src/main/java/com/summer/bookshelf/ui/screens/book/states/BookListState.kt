@@ -4,6 +4,8 @@ sealed class BookListState {
 
     data object Idle : BookListState()
 
+    data object Logout : BookListState()
+
     data class Loading(var message: String) : BookListState()
 
     data class Error(var message: String) : BookListState()

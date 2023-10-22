@@ -22,4 +22,8 @@ class Preference(private val sharedPreferences: SharedPreferences) {
     suspend fun getLoggedInUserId() =
         sharedPreferences.getInt(LOGGED_IN_USER_ID, 0)
 
+    suspend fun logout() {
+        sharedPreferences.edit().remove(LOGGED_IN_USER_ID).apply()
+    }
+
 }

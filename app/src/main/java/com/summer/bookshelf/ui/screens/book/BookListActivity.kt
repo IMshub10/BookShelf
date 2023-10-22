@@ -10,6 +10,8 @@ import com.summer.bookshelf.ui.adapters.BookAdapter
 import com.summer.bookshelf.ui.dialogs.HelperAlertDialog
 import com.summer.bookshelf.ui.models.BookModel
 import com.summer.bookshelf.ui.screens.book.states.BookListState
+import com.summer.bookshelf.ui.screens.user.UserActivity
+import com.summer.bookshelf.utils.LauncherUtils
 import com.summer.bookshelf.utils.extensions.collectLatestFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -61,6 +63,10 @@ class BookListActivity : BaseActivity<ActivityBookListBinding>() {
                     }
                 }
             })
+
+            ivActBookListLogout.setOnClickListener {
+                viewModel.logout()
+            }
         }
     }
 
@@ -95,6 +101,13 @@ class BookListActivity : BaseActivity<ActivityBookListBinding>() {
                 is BookListState.Loading -> {
                     showHelperDialog(HelperAlertDialog.DialogType.PROGRESS)
                     helperDialog?.setTitleText(it.message)
+                }
+
+                BookListState.Logout -> {
+                    LauncherUtils.startActivityWithClearTop(
+                        this,
+                        UserActivity::class.java
+                    )
                 }
             }
         }

@@ -96,4 +96,6 @@ class BookRepositoryImpl(
         }
     }
 
+    override suspend fun logout() = preference.logout()
+
 }

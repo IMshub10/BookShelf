@@ -49,4 +49,12 @@ class BookListViewModel(
             _state.value = BookListState.Idle
         }
     }
+
+    fun logout() {
+        _state.value = BookListState.Loading("Logging out...")
+        viewModelScope.launch(Dispatchers.IO) {
+            bookRepository.logout()
+            _state.value = BookListState.Logout
+        }
+    }
 }
