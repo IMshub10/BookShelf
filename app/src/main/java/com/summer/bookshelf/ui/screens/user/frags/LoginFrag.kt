@@ -1,11 +1,11 @@
 package com.summer.bookshelf.ui.screens.user.frags
 
 import android.os.Bundle
+import android.view.View
 import androidx.biometric.BiometricPrompt
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.summer.bookshelf.R
-import com.summer.bookshelf.base.ui.BaseActivity
 import com.summer.bookshelf.base.ui.BaseFragment
 import com.summer.bookshelf.databinding.FragLoginBinding
 import com.summer.bookshelf.ui.dialogs.HelperAlertDialog
@@ -33,6 +33,10 @@ class LoginFrag : BaseFragment<FragLoginBinding>(), BiometricResultListener {
         mBinding.ivFragLoginFingerPrint.isVisible = canAuthenticateWithBiometric()
 
         viewModel.resetStates()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         observe()
 
@@ -43,23 +47,17 @@ class LoginFrag : BaseFragment<FragLoginBinding>(), BiometricResultListener {
         collectLatestFlow(viewModel.state) {
             when (it) {
                 LoginState.Idle -> {
-                    with((requireActivity() as BaseActivity<*>)) {
-                        helperDialog?.dismiss()
-                    }
+                    helperDialog?.dismiss()
                 }
 
                 is LoginState.Loading -> {
-                    with((requireActivity() as BaseActivity<*>)) {
-                        showHelperDialog(HelperAlertDialog.DialogType.PROGRESS)
-                        helperDialog?.setTitleText(it.message)
-                    }
+                    showHelperDialog(HelperAlertDialog.DialogType.PROGRESS)
+                    helperDialog?.setTitleText(it.message)
                 }
 
                 is LoginState.Error -> {
-                    with((requireActivity() as BaseActivity<*>)) {
-                        showHelperDialog(HelperAlertDialog.DialogType.NO_BUTTON)
-                        helperDialog?.setTitleText(it.message)
-                    }
+                    showHelperDialog(HelperAlertDialog.DialogType.NO_BUTTON)
+                    helperDialog?.setTitleText(it.message)
                 }
 
                 LoginState.UserLoggedIn -> {

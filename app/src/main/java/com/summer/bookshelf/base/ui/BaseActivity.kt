@@ -7,15 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.summer.bookshelf.ui.dialogs.HelperAlertDialog
-
 
 abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     @get:LayoutRes
     protected abstract val layoutResId: Int
-
-    var helperDialog: HelperAlertDialog? = null
 
     private var binding: B? = null
     protected val mBinding: B
@@ -53,17 +49,6 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     protected open fun showExitDialog() {
 
-    }
-
-    fun showHelperDialog(dialogType: HelperAlertDialog.DialogType = HelperAlertDialog.DialogType.NO_BUTTON) {
-        if (helperDialog == null) {
-            helperDialog = HelperAlertDialog(dialogType)
-        } else {
-            helperDialog?.changeAlertType(dialogType)
-        }
-        if (helperDialog?.isAdded != true) {
-            helperDialog?.show(supportFragmentManager, "")
-        }
     }
 
     override fun onDestroy() {

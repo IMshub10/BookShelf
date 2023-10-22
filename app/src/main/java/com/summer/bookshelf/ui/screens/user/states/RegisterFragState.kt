@@ -6,7 +6,7 @@ sealed class RegisterFragState {
 
     data object Idle : RegisterFragState()
 
-    data class Error(var message: String) : RegisterFragState()
+    data class Error(var message: String, var errorCode: Int) : RegisterFragState()
 
     data class SaveComplete(var message: String) : RegisterFragState()
 }

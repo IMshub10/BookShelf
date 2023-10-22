@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.summer.bookshelf.ui.dialogs.HelperAlertDialog
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
@@ -18,6 +19,8 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
     private var binding: B? = null
     protected val mBinding: B
         get() = binding!!
+
+    var helperDialog: HelperAlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,4 +45,15 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
         binding = null
     }
 
+
+    fun showHelperDialog(dialogType: HelperAlertDialog.DialogType = HelperAlertDialog.DialogType.NO_BUTTON) {
+        if (helperDialog == null) {
+            helperDialog = HelperAlertDialog(dialogType)
+        } else {
+            helperDialog?.changeAlertType(dialogType)
+        }
+        if (helperDialog?.isAdded != true) {
+            helperDialog?.show(childFragmentManager, "")
+        }
+    }
 }

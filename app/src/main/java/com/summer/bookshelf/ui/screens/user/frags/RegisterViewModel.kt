@@ -52,7 +52,7 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
         },
     )
 
-    init {
+    fun loadCountries() {
         _state.value = RegisterFragState.Loading("Loading Countries")
 
         loginRepository.fetchCountryList().map { list ->
@@ -73,7 +73,10 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
 
                 }.launchIn(viewModelScope)
             } else {
-                _state.value = RegisterFragState.Error("Unable to load countries")
+                _state.value = RegisterFragState.Error(
+                    "Unable to load countries, check your internet connection",
+                    FAILED_TO_LOAD_COUNTRIES
+                )
             }
         }.launchIn(viewModelScope)
     }
@@ -109,7 +112,10 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
                     loginRepository.checkUserExists(email = emailInputModel.editTextContent!!)
                 if (userExists) {
                     _state.value =
-                        RegisterFragState.Error("Account with same e-mail already exists")
+                        RegisterFragState.Error(
+                            "Account with same e-mail already exists",
+                            ACCOUNT_ALREADY_EXISTS
+                        )
                 } else {
                     loginRepository.insertUser(
                         UserEntity(
@@ -125,5 +131,10 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
         } else {
             _state.value = RegisterFragState.Idle
         }
+    }
+
+    companion object {
+        const val FAILED_TO_LOAD_COUNTRIES = 1
+        const val ACCOUNT_ALREADY_EXISTS = 2
     }
 }

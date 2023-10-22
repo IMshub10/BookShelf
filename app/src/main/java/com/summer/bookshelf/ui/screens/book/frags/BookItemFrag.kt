@@ -2,6 +2,7 @@ package com.summer.bookshelf.ui.screens.book.frags
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import com.summer.bookshelf.R
 import com.summer.bookshelf.base.ui.BaseFragment
 import com.summer.bookshelf.databinding.FragBookItemBinding
@@ -22,6 +23,11 @@ class BookItemFrag : BaseFragment<FragBookItemBinding>() {
     override fun onFragmentReady(instanceState: Bundle?) {
         mBinding.model = viewModel.selectedBookModel
         viewModel.fetchTags()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         observe()
 
         listeners()

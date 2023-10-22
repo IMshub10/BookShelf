@@ -1,9 +1,9 @@
 package com.summer.bookshelf.ui.screens.user.frags
 
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.summer.bookshelf.R
-import com.summer.bookshelf.base.ui.BaseActivity
 import com.summer.bookshelf.base.ui.BaseFragment
 import com.summer.bookshelf.databinding.FragRegisterBinding
 import com.summer.bookshelf.ui.dialogs.HelperAlertDialog
@@ -20,6 +20,11 @@ class RegisterFrag : BaseFragment<FragRegisterBinding>() {
 
     override fun onFragmentReady(instanceState: Bundle?) {
         mBinding.model = viewModel
+        viewModel.loadCountries()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         observe()
 
@@ -30,33 +35,34 @@ class RegisterFrag : BaseFragment<FragRegisterBinding>() {
         collectLatestFlow(viewModel.state) {
             when (it) {
                 is RegisterFragState.Error -> {
-                    with((requireActivity() as BaseActivity<*>)) {
+                    if (it.errorCode == RegisterViewModel.ACCOUNT_ALREADY_EXISTS) {
                         showHelperDialog(HelperAlertDialog.DialogType.NO_BUTTON)
                         helperDialog?.setTitleText(it.message)
+                    } else {
+                        showHelperDialog(HelperAlertDialog.DialogType.TWO_BUTTON)
+                        helperDialog?.setTitleText(it.message)
+                        helperDialog?.setConfirmText(getString(R.string.reload))
+                        helperDialog?.setConfirmClickListener {
+                            viewModel.loadCountries()
+                        }
                     }
                 }
 
                 RegisterFragState.Idle -> {
-                    with((requireActivity() as BaseActivity<*>)) {
-                        helperDialog?.dismiss()
-                    }
+                    helperDialog?.dismiss()
                 }
 
                 is RegisterFragState.Loading -> {
-                    with((requireActivity() as BaseActivity<*>)) {
-                        showHelperDialog(HelperAlertDialog.DialogType.PROGRESS)
-                        helperDialog?.setTitleText(it.message)
-                    }
+                    showHelperDialog(HelperAlertDialog.DialogType.PROGRESS)
+                    helperDialog?.setTitleText(it.message)
                 }
 
                 is RegisterFragState.SaveComplete -> {
-                    with((requireActivity() as BaseActivity<*>)) {
-                        showHelperDialog(HelperAlertDialog.DialogType.SUCCESS)
-                        helperDialog?.setTitleText(it.message)
-                        helperDialog?.setConfirmClickListener {
-                            if (findNavController().currentDestination?.id == R.id.registerFrag)
-                                findNavController().navigateUp()
-                        }
+                    showHelperDialog(HelperAlertDialog.DialogType.SUCCESS)
+                    helperDialog?.setTitleText(it.message)
+                    helperDialog?.setConfirmClickListener {
+                        if (findNavController().currentDestination?.id == R.id.registerFrag)
+                            findNavController().navigateUp()
                     }
                 }
             }

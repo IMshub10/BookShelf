@@ -1,6 +1,7 @@
 package com.summer.bookshelf.ui.screens.book.frags
 
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +44,10 @@ class BookListFrag : BaseFragment<FragBookListBinding>() {
 
     override fun onFragmentReady(instanceState: Bundle?) {
         setupRecyclerView()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         observe()
 
@@ -89,23 +94,17 @@ class BookListFrag : BaseFragment<FragBookListBinding>() {
         collectLatestFlow(viewModel.state) {
             when (it) {
                 BookListState.Idle -> {
-                    with((requireActivity() as BaseActivity<*>)) {
-                        helperDialog?.dismiss()
-                    }
+                    helperDialog?.dismiss()
                 }
 
                 is BookListState.Error -> {
-                    with((requireActivity() as BaseActivity<*>)) {
-                        showHelperDialog(HelperAlertDialog.DialogType.NO_BUTTON)
-                        helperDialog?.setTitleText(it.message)
-                    }
+                    showHelperDialog(HelperAlertDialog.DialogType.NO_BUTTON)
+                    helperDialog?.setTitleText(it.message)
                 }
 
                 is BookListState.Loading -> {
-                    with((requireActivity() as BaseActivity<*>)) {
-                        showHelperDialog(HelperAlertDialog.DialogType.PROGRESS)
-                        helperDialog?.setTitleText(it.message)
-                    }
+                    showHelperDialog(HelperAlertDialog.DialogType.PROGRESS)
+                    helperDialog?.setTitleText(it.message)
                 }
 
                 BookListState.Logout -> {
