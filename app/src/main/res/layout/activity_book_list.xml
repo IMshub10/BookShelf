@@ -31,23 +31,17 @@
                 app:srcCompat="@drawable/ic_logout" />
         </androidx.appcompat.widget.Toolbar>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_actBookList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <fragment
+            android:id="@+id/fcv__container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tb_actBookList"
-            app:tabMode="scrollable" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_actBookList"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_actBookList"
-            tools:listitem="@layout/item_book" />
+            app:navGraph="@navigation/nav_book_list" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
