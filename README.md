@@ -2,7 +2,8 @@
 **BookShelf** is an app which shows the list of books. 
 
 **Table Schema**
-<img width="1040" alt="image" src="https://github.com/IMshub10/BookShelf/assets/54928767/ea9fa642-ce79-4011-8cb4-4b8f6d467937">
+<img width="1038" alt="image" src="https://github.com/IMshub10/BookShelf/assets/54928767/65a7f1ad-6b6d-4e59-928b-c95b3c54bac7">
+
 
 **Description**
 
@@ -12,7 +13,7 @@ Part 1: User Login-Register Flow
  - Login with email & password/biometric
  - Logout added at top of MainActivity(Book List).
    
- <img width="945" alt="image" src="https://github.com/IMshub10/BookShelf/assets/54928767/a1525031-9bf8-434c-ae0d-37059556d28e">
+ <img width="985" alt="image" src="https://github.com/IMshub10/BookShelf/assets/54928767/2d2bac07-9eb4-4617-a4db-c55520911e09">
 
  
  Part 2: Book List
@@ -21,18 +22,15 @@ Part 1: User Login-Register Flow
  - Favourite button added to mark a book by distinct user.
  - Search window to filter books by query.
    
-   <img width="616" alt="image" src="https://github.com/IMshub10/BookShelf/assets/54928767/3181f4bb-52ac-4c63-87bb-f6c7a8abb17a">
-
-
+   <img width="629" alt="image" src="https://github.com/IMshub10/BookShelf/assets/54928767/af0b86c9-d7a1-4c52-8327-8a08d9601b33">
 
  
  Part 3: Book Detail
  
  - Comprehensive view of book 
  - Tags can be added to books by distinct user
-   
-   <img width="601" alt="image" src="https://github.com/IMshub10/BookShelf/assets/54928767/3cfdc856-1125-4273-89d6-6689500b4c2f">
-
+ - 
+   <img width="601" alt="image" src="https://github.com/IMshub10/BookShelf/assets/54928767/a40476dc-5bd4-4541-869a-0b6d65f42c2a">
 
  
 ## How to Install
