@@ -10,7 +10,7 @@ import com.summer.bookshelf.R
 import com.summer.bookshelf.databinding.ItemBookBinding
 import com.summer.bookshelf.ui.models.BookModel
 
-class BookAdapter :
+class BookAdapter(private val selectionCallback: SelectionCallback) :
     ListAdapter<BookModel, BookAdapter.ContentHolder>(Callback()) {
 
     inner class ContentHolder(private val binding: ItemBookBinding) :
@@ -18,6 +18,9 @@ class BookAdapter :
         fun bind(model: BookModel) {
             binding.run {
                 this.model = model
+                ivItemBookBookmark.setOnClickListener {
+                    selectionCallback.onBookmark(model)
+                }
             }
         }
     }
@@ -47,4 +50,7 @@ class BookAdapter :
     override fun onBindViewHolder(holder: ContentHolder, position: Int) =
         holder.bind(getItem(position))
 
+    interface SelectionCallback {
+        fun onBookmark(bookModel: BookModel)
+    }
 }

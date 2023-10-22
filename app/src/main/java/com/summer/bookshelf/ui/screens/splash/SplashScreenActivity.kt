@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.summer.bookshelf.R
 import com.summer.bookshelf.base.ui.BaseActivity
 import com.summer.bookshelf.databinding.ActivitySplashScreenBinding
-import com.summer.bookshelf.ui.screens.main.BookListActivity
+import com.summer.bookshelf.ui.screens.book.BookListActivity
 import com.summer.bookshelf.ui.screens.user.UserActivity
 import com.summer.bookshelf.utils.LauncherUtils
 import kotlinx.coroutines.Dispatchers

@@ -16,7 +16,7 @@ import com.summer.bookshelf.repositories.LoginRepository
 import com.summer.bookshelf.repositories.LoginRepositoryImpl
 import com.summer.bookshelf.repositories.SplashRepository
 import com.summer.bookshelf.repositories.SplashRepositoryImpl
-import com.summer.bookshelf.ui.screens.main.BookListViewModel
+import com.summer.bookshelf.ui.screens.book.BookListViewModel
 import com.summer.bookshelf.ui.screens.splash.SplashViewModel
 import com.summer.bookshelf.ui.screens.user.frags.LoginViewModel
 import com.summer.bookshelf.ui.screens.user.frags.RegisterViewModel
@@ -71,8 +71,10 @@ val repositoryModule = module {
 
     fun provideBookRepository(
         bookService: BookService,
-        appDao: AppDao
-    ): BookRepository = BookRepositoryImpl(bookService = bookService, appDao = appDao)
+        appDao: AppDao,
+        preference: Preference
+    ): BookRepository =
+        BookRepositoryImpl(bookService = bookService, appDao = appDao, preference = preference)
 
     single { provideSplashRepository(preference = get()) }
 
@@ -83,7 +85,7 @@ val repositoryModule = module {
     }
 
     single {
-        provideBookRepository(bookService = get(), appDao = get())
+        provideBookRepository(bookService = get(), appDao = get(), preference = get())
     }
 }
 
