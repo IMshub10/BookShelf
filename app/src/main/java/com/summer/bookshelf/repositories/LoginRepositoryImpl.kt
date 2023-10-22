@@ -90,9 +90,9 @@ class LoginRepositoryImpl(
         password
     ) > 0
 
-    override suspend fun setUserLoginStatus(loggedIn: Boolean) {
+    override suspend fun setUserLoginStatus(loggedIn: Boolean) =
         preference.setUserLoginStatus(loggedIn)
-    }
 
+    override suspend fun checkUserExists(email: String) = appDao.checkUserExists(email)
 
 }

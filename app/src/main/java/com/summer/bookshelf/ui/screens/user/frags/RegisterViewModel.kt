@@ -105,15 +105,20 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
 
         if (isValid) {
             viewModelScope.launch(Dispatchers.IO) {
-                loginRepository.insertUser(
-                    UserEntity(
-                        email = emailInputModel.editTextContent!!,
-                        name = nameInputModel.editTextContent!!,
-                        password = passwordInputModel.editTextContent!!,
-                        country = countryInputModel.selectedDropDownModel.value!!.id
+                val userExists =
+                    loginRepository.checkUserExists(email = emailInputModel.editTextContent!!)
+                if (userExists) {
+                    _state.value =
+                        RegisterFragState.Error("Account with same e-mail already exists")
+                } else {
+                    loginRepository.insertUser(
+                        UserEntity(
+                            email = emailInputModel.editTextContent!!,
+                            name = nameInputModel.editTextContent!!,
+                            password = passwordInputModel.editTextContent!!,
+                            country = countryInputModel.selectedDropDownModel.value!!.id
+                        )
                     )
-                )
-                withContext(Dispatchers.Default) {
                     _state.value = RegisterFragState.SaveComplete("Registration Complete")
                 }
             }

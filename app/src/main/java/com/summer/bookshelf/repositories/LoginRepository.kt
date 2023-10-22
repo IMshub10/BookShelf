@@ -15,4 +15,6 @@ interface LoginRepository {
     suspend fun isUserNamePassCorrect(email: String, password: String): Boolean
 
     suspend fun setUserLoginStatus(loggedIn: Boolean)
+
+    suspend fun checkUserExists(email: String): Boolean
 }
