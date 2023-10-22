@@ -82,7 +82,10 @@ class BookListFrag : BaseFragment<FragBookListBinding>() {
         with(mBinding) {
             tabActBookList.removeAllTabs()
             list.forEach {
-                tabActBookList.addTab(tabActBookList.newTab().setText(it.toString()))
+                tabActBookList.newTab().setText(it.toString()).apply {
+                    view.isClickable = false
+                    tabActBookList.addTab(this)
+                }
             }
         }
     }
