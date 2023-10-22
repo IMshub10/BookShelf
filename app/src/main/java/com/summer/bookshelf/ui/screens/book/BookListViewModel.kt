@@ -26,6 +26,8 @@ class BookListViewModel(
 
     var selectedBookModel: BookModel? = null
 
+    var query: String = ""
+
     var tagList = MutableStateFlow<List<String>>(emptyList())
 
     private val _booksYears = MutableStateFlow<Set<Int>?>(null)
@@ -35,10 +37,10 @@ class BookListViewModel(
     val books = _books.asStateFlow()
 
     init {
-        loadBooks("")
+        loadBooks()
     }
 
-    fun loadBooks(query: String) {
+    fun loadBooks() {
         _state.value = BookListState.Loading("Loading Books")
 
         bookRepository.fetchBooks(query).map {

@@ -58,7 +58,8 @@ class BookListActivity : BaseActivity<ActivityBookListBinding>() {
                 searchHandler.apply {
                     removeCallbacksAndMessages(null)
                     postDelayed({
-                        viewModel.loadBooks(query.orEmpty())
+                        viewModel.query = query.orEmpty()
+                        viewModel.loadBooks()
                     }, 1000L)
                 }
                 return false
@@ -68,7 +69,8 @@ class BookListActivity : BaseActivity<ActivityBookListBinding>() {
                 searchHandler.apply {
                     removeCallbacksAndMessages(null)
                     postDelayed({
-                        viewModel.loadBooks(query.orEmpty())
+                        viewModel.query = query.orEmpty()
+                        viewModel.loadBooks()
                     }, 1000L)
                 }
                 return false

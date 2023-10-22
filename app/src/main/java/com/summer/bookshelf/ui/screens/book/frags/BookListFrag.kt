@@ -2,6 +2,7 @@ package com.summer.bookshelf.ui.screens.book.frags
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -71,6 +72,9 @@ class BookListFrag : BaseFragment<FragBookListBinding>() {
                     }
                 }
             })
+            srlFragBookListRefresh.setOnRefreshListener {
+                viewModel.loadBooks()
+            }
         }
     }
 
@@ -94,6 +98,7 @@ class BookListFrag : BaseFragment<FragBookListBinding>() {
         collectLatestFlow(viewModel.state) {
             when (it) {
                 BookListState.Idle -> {
+                    mBinding.srlFragBookListRefresh.isRefreshing = false
                     helperDialog?.dismiss()
                 }
 
@@ -118,11 +123,16 @@ class BookListFrag : BaseFragment<FragBookListBinding>() {
 
         collectLatestFlow(viewModel.bookYears) {
             it?.let {
+                mBinding.tabActBookList.isVisible = it.isNotEmpty()
                 setUpTabs(it)
             }
         }
         collectLatestFlow(viewModel.books) {
             it?.let {
+                with(mBinding) {
+                    rvActBookList.isVisible = it.isNotEmpty()
+                    tvActBookListNotFound.isVisible = it.isEmpty()
+                }
                 adapter.submitList(it)
             }
         }
