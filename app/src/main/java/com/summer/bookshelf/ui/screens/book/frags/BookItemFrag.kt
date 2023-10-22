@@ -38,6 +38,13 @@ class BookItemFrag : BaseFragment<FragBookItemBinding>() {
             mbItemBookAddTag.setOnClickListener {
                 showTagDialog()
             }
+            ivItemBookBookmark.setOnClickListener {
+                viewModel.selectedBookModel?.let {
+                    it.isBookmarked = !it.isBookmarked
+                    it.notifyChange()
+                    viewModel.bookMark(it)
+                }
+            }
         }
     }
 
