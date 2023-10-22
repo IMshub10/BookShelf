@@ -21,7 +21,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         hint = R.string.email,
         isRequired = true,
         validator = {
-            it.isNotBlank()
+            it.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}\$".toRegex())
         },
     )
 
