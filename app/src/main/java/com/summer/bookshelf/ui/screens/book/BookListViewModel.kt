@@ -10,6 +10,8 @@ import com.summer.bookshelf.ui.models.BookModel
 import com.summer.bookshelf.ui.screens.book.states.BookListState
 import com.summer.bookshelf.ui.screens.user.states.LoginState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -36,6 +38,8 @@ class BookListViewModel(
     private val _books = MutableStateFlow<List<BookModel>?>(null)
     val books = _books.asStateFlow()
 
+    private var loadTagsJob: Job? = null
+
     init {
         loadBooks()
     }
@@ -54,7 +58,8 @@ class BookListViewModel(
 
     fun fetchTags() {
         viewModelScope.launch(Dispatchers.IO) {
-            bookRepository.fetchUserMetaData(selectedBookModel!!.id).map {
+            loadTagsJob?.cancelAndJoin() //cancel previous selectedBooks tags
+            loadTagsJob = bookRepository.fetchUserMetaData(selectedBookModel!!.id).map {
                 tagList.value = it?.tags ?: emptyList()
             }.launchIn(viewModelScope)
         }
