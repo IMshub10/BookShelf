@@ -72,7 +72,7 @@ class LoginFrag : BaseFragment<FragLoginBinding>(), BiometricResultListener {
 
     private fun listeners() {
         with(mBinding) {
-            mbFragLoginRegister.setOnClickListener {
+            tvFragLoginRegister.setOnClickListener {
                 if (findNavController().currentDestination?.id == R.id.loginFrag)
                     findNavController().navigate(R.id.action_loginFrag_to_registerFrag)
             }

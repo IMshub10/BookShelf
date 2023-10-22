@@ -81,28 +81,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/et_fragLogin_password"
                     app:srcCompat="@drawable/ic_fingerprint" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_fragLogin_or"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_x_medium"
-                    android:gravity="center"
-                    android:text="@string/or"
-                    android:textSize="24sp"
-                    app:layout_constraintTop_toBottomOf="@+id/mb_fragLogin_login" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/mb_fragLogin_register"
-                    style="@style/text_title_2"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_fragLogin_register"
+                    style="@style/text_body_bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_x_medium"
-                    android:layout_marginTop="@dimen/spacing_x_medium"
-                    android:text="@string/register"
-                    android:textColor="?colorPrimary"
-                    app:backgroundTint="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_fragLogin_or"
-                    app:strokeColor="?colorPrimary"
+                    android:layout_marginTop="@dimen/spacing_x_large"
+                    app:setRegisterSpannable="@{@string/not_a_user_register_here}"
+                    android:gravity="end"
+                    android:textStyle="italic"
+                    android:textColor="?label"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_fragLogin_fingerPrint"
                     app:strokeWidth="1dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

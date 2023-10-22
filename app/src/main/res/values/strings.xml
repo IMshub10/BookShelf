@@ -20,4 +20,5 @@
     <string name="tags">Tags</string>
     <string name="reload">Reload</string>
     <string name="no_books_found">No books found :(</string>
+    <string name="not_a_user_register_here">Don\'t have an account? Register for free..</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.summer.bookshelf.utils
 
+import android.text.Spannable
 import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
@@ -104,6 +106,19 @@ object ViewConvertors {
                 if (isBookmarked) R.drawable.ic_bookmarked else R.drawable.ic_bookmark
             )
         )
+    }
+
+    @BindingAdapter("setRegisterSpannable")
+    @JvmStatic
+    fun AppCompatTextView.setRegisterSpannable(text: String) {
+        this.text = SpannableString(text).apply {
+            setSpan(
+                ForegroundColorSpan(context.getColor(R.color.blue_light)),
+                text.indexOf("Register"),
+                text.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
     }
 
 }
