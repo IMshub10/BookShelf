@@ -14,6 +14,6 @@ data class UserEntity(
     var name: String = "",
     @ColumnInfo("password")
     var password: String = "",
-    @ColumnInfo("country")
-    var country: String = ""
+    @ColumnInfo("country_code")
+    var countryCode: String = ""
 )

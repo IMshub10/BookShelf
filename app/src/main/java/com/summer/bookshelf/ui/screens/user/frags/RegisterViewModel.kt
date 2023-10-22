@@ -122,7 +122,7 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
                             email = emailInputModel.editTextContent!!,
                             name = nameInputModel.editTextContent!!,
                             password = passwordInputModel.editTextContent!!,
-                            country = countryInputModel.selectedDropDownModel.value!!.id
+                            countryCode = countryInputModel.selectedDropDownModel.value!!.id
                         )
                     )
                     _state.value = RegisterFragState.SaveComplete("Registration Complete")
