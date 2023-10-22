@@ -34,7 +34,7 @@ Part 1: User Login-Register Flow
 
  
 ## How to Install
-1. Download apk from here [APK](https://github.com/IMshub10/BookShelf/blob/9f5928ae96b1148a64b10a0e92e168a92ea8640e/app/build/outputs/apk/debug/BookShelf.apk)
+1. Download apk from here [APK](https://github.com/IMshub10/BookShelf/blob/main/app/build/outputs/apk/debug/BookShelf_v2.apk)
 2. Install the app.
 3. To register click on "**register here**".
 4. Use the email & password, or email & biometric to login.
