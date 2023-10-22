@@ -1,6 +1,7 @@
 package com.summer.bookshelf.ui.screens.book.frags
 
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.summer.bookshelf.R
@@ -29,6 +30,12 @@ class BookListFrag : BaseFragment<FragBookListBinding>() {
                 viewModel.bookMark(bookModel)
                 bookModel.notifyChange()
             }
+
+            override fun onItemClick(bookModel: BookModel) {
+                viewModel.selectedBookModel = bookModel
+                if (findNavController().currentDestination?.id == R.id.bookListFrag)
+                    findNavController().navigate(R.id.action_bookListFrag_to_bookItemFrag)
+            }
         })
     }
 
@@ -45,10 +52,6 @@ class BookListFrag : BaseFragment<FragBookListBinding>() {
     private fun listeners() {
         with(mBinding) {
             rvActBookList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    super.onScrollStateChanged(recyclerView, newState)
-                }
-
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 

@@ -3,7 +3,9 @@ package com.summer.bookshelf.ui.screens.book
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Query
+import com.summer.bookshelf.R
 import com.summer.bookshelf.repositories.BookRepository
+import com.summer.bookshelf.ui.inputs.TextInputModel
 import com.summer.bookshelf.ui.models.BookModel
 import com.summer.bookshelf.ui.screens.book.states.BookListState
 import com.summer.bookshelf.ui.screens.user.states.LoginState
@@ -22,11 +24,9 @@ class BookListViewModel(
     private val _state = MutableStateFlow<BookListState>(BookListState.Idle)
     val state: StateFlow<BookListState> = _state.asStateFlow()
 
-    val searchQuery = MutableStateFlow("")
+    var selectedBookModel: BookModel? = null
 
-    companion object {
-        const val TAG = "BookListViewModel"
-    }
+    var tagList = MutableStateFlow<List<String>>(emptyList())
 
     private val _booksYears = MutableStateFlow<Set<Int>?>(null)
     val bookYears = _booksYears.asStateFlow()
@@ -40,6 +40,7 @@ class BookListViewModel(
 
     fun loadBooks(query: String) {
         _state.value = BookListState.Loading("Loading Books")
+
         bookRepository.fetchBooks(query).map {
             _booksYears.value = it.keys
             _books.value = it.flatMap { flatMap ->
@@ -47,6 +48,14 @@ class BookListViewModel(
             }
             _state.value = BookListState.Idle
         }.launchIn(viewModelScope)
+    }
+
+    fun fetchTags() {
+        viewModelScope.launch(Dispatchers.IO) {
+            bookRepository.fetchUserMetaData(selectedBookModel!!.id).map {
+                tagList.value = it?.tags ?: emptyList()
+            }.launchIn(viewModelScope)
+        }
     }
 
     fun bookMark(bookModel: BookModel) {

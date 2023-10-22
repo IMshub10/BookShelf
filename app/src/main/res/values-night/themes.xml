@@ -8,5 +8,6 @@
         <item name="label">@color/white</item>
         <item name="labelSecondary">@color/opaque_0.6</item>
         <item name="boxBackground">@color/background_dark</item>
+        <item name="colorOnSurface">@color/black</item>
     </style>
 </resources>

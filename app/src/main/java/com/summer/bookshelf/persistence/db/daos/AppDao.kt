@@ -9,6 +9,7 @@ import com.summer.bookshelf.persistence.db.entities.CountryEntity
 import com.summer.bookshelf.persistence.db.entities.UserBookMetaData
 import com.summer.bookshelf.persistence.db.entities.UserEntity
 import com.summer.bookshelf.ui.models.BookModel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AppDao {
@@ -49,5 +50,11 @@ interface AppDao {
 
     @Query("Update user_books_meta_data set is_bookmarked = :isBookmarked where book_id =:bookId and user_id =:userId")
     fun updateBookMark(userId: Int, bookId: String, isBookmarked: Boolean)
+
+    @Query("Update user_books_meta_data set tags = :tags where book_id =:bookId and user_id =:userId")
+    fun updateTags(userId: Int, bookId: String, tags: List<String>)
+
+    @Query("Select * from user_books_meta_data where user_id =:userId and book_id =:bookId")
+    fun fetchTags(userId: Int, bookId: String): Flow<UserBookMetaData?>
 
 }

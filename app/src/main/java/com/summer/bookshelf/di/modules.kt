@@ -17,6 +17,7 @@ import com.summer.bookshelf.repositories.LoginRepositoryImpl
 import com.summer.bookshelf.repositories.SplashRepository
 import com.summer.bookshelf.repositories.SplashRepositoryImpl
 import com.summer.bookshelf.ui.screens.book.BookListViewModel
+import com.summer.bookshelf.ui.screens.book.TagViewModel
 import com.summer.bookshelf.ui.screens.splash.SplashViewModel
 import com.summer.bookshelf.ui.screens.user.frags.LoginViewModel
 import com.summer.bookshelf.ui.screens.user.frags.RegisterViewModel
@@ -101,5 +102,8 @@ val viewModelModule = module {
     }
     viewModel {
         BookListViewModel(bookRepository = get())
+    }
+    viewModel {
+        TagViewModel(bookRepository = get())
     }
 }

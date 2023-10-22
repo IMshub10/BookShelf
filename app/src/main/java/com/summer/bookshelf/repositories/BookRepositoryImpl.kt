@@ -7,6 +7,7 @@ import com.summer.bookshelf.persistence.db.entities.UserBookMetaData
 import com.summer.bookshelf.persistence.pref.Preference
 import com.summer.bookshelf.ui.models.BookModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.util.Calendar
@@ -102,4 +103,32 @@ class BookRepositoryImpl(
 
     override suspend fun logout() = preference.logout()
 
+    override suspend fun addTag(bookId: String, tagName: String) {
+        val userId = preference.getLoggedInUserId()
+        val bookMetaData = appDao.getBookMetaDataByIds(
+            bookId = bookId,
+            userId = userId
+        )
+        if (bookMetaData == null) {
+            appDao.insertIgnoreBookMeta(
+                UserBookMetaData(
+                    userId = userId,
+                    bookId = bookId,
+                    isBookmarked = false,
+                    tags = listOf(tagName)
+                )
+            )
+        } else {
+            appDao.updateTags(
+                userId = userId,
+                bookId = bookId,
+                tags = bookMetaData.tags.toMutableList().apply {
+                    add(tagName)
+                }
+            )
+        }
+    }
+
+    override suspend fun fetchUserMetaData(bookId: String) =
+        appDao.fetchTags(userId = preference.getLoggedInUserId(), bookId = bookId)
 }

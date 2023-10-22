@@ -10,27 +10,22 @@
             type="com.summer.bookshelf.ui.models.BookModel" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcv_itemBook_card"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/spacing_small"
-        android:layout_marginVertical="@dimen/spacing_x_small"
-        android:background="@drawable/ripple_rounded_rect_color_on_secondary_solid_grey_stroke_small_corners"
-        app:cardCornerRadius="@dimen/spacing_small"
-        app:cardElevation="4dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_itemBook_image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:layout_margin="@dimen/spacing_small"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:scaleType="fitCenter"
                 app:layout_constraintTop_toTopOf="parent"
                 app:setImage="@{model.image}"
                 tools:src="@drawable/ic_launcher_foreground" />
@@ -45,8 +40,8 @@
                 android:text="@{model.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/iv_itemBook_bookmark"
-                app:layout_constraintStart_toEndOf="@+id/iv_itemBook_image"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_itemBook_image"
                 tools:text="Tokyo Ghoul " />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -61,7 +56,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/tv_itemBook_year"
                 app:layout_constraintEnd_toStartOf="@+id/iv_itemBook_bookmark"
                 app:layout_constraintHorizontal_bias="0.52"
-                app:layout_constraintStart_toEndOf="@+id/iv_itemBook_image"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_itemBook_title"
                 tools:text="4.5" />
 
@@ -75,9 +70,8 @@
                 android:layout_marginBottom="@dimen/spacing_small"
                 android:text="@{String.valueOf(model.year)}"
                 android:textColor="@color/blue_light"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/iv_itemBook_bookmark"
-                app:layout_constraintStart_toEndOf="@+id/iv_itemBook_image"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_itemBook_score"
                 tools:text="1999" />
 
@@ -86,12 +80,45 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginEnd="@dimen/spacing_small"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_itemBook_year"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_itemBook_image"
                 app:setBookmark="@{model.isBookmarked}"
                 tools:src="@drawable/ic_bookmark" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/iv_itemBook_header"
+                style="@style/text_header_bold"
+                android:layout_width="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/mb_itemBook_addTag"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_small"
+                android:text="@string/tags"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toStartOf="@+id/mb_itemBook_addTag"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/mb_itemBook_addTag" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mb_itemBook_addTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_small"
+                android:drawableEnd="@drawable/round_add_white"
+                android:text="Add Tag"
+                android:textColor="@color/white"
+                app:cornerRadius="@dimen/spacing_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_itemBook_year" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/fb_itemBook_tagContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_small"
+                android:orientation="vertical"
+                app:flexWrap="wrap"
+                app:layout_constraintTop_toBottomOf="@+id/mb_itemBook_addTag" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

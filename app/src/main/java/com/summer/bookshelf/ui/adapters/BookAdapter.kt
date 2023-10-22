@@ -21,6 +21,9 @@ class BookAdapter(private val selectionCallback: SelectionCallback) :
                 ivItemBookBookmark.setOnClickListener {
                     selectionCallback.onBookmark(model)
                 }
+                mcvItemBookCard.setOnClickListener {
+                    selectionCallback.onItemClick(model)
+                }
             }
         }
     }
@@ -52,5 +55,6 @@ class BookAdapter(private val selectionCallback: SelectionCallback) :
 
     interface SelectionCallback {
         fun onBookmark(bookModel: BookModel)
+        fun onItemClick(bookModel: BookModel)
     }
 }

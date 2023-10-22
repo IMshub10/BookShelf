@@ -8,6 +8,7 @@
         <item name="label">@color/charcoal</item>
         <item name="labelSecondary">@color/translucent_0.6</item>
         <item name="boxBackground">@color/background_light</item>
+        <item name="colorOnSurface">@color/grey_lightest</item>
     </style>
 
     <style name="Theme.BookShelf" parent="Base.Theme.BookShelf" />

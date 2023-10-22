@@ -6,6 +6,9 @@ import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
 import com.summer.bookshelf.R
 import com.summer.bookshelf.base.ui.BaseActivity
 import com.summer.bookshelf.databinding.ActivityBookListBinding
@@ -19,24 +22,34 @@ class BookListActivity : BaseActivity<ActivityBookListBinding>() {
     private val viewModel: BookListViewModel by viewModel()
 
     private var searchItem: MenuItem? = null
+    private var logoutItem: MenuItem? = null
 
     private val searchHandler = Handler(Looper.getMainLooper())
 
+    private val navController: NavController by lazy { findNavController(R.id.fcv_booklist_container) }
+
     override fun onActivityReady(savedInstanceState: Bundle?) {
         setupActionBar(mBinding.tbActBookList)
-
         listeners()
     }
 
     private fun listeners() {
-        with(mBinding) {
-
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            setMenuOptionsVisibility(destination)
+        }
+        mBinding.tbActBookList.setNavigationOnClickListener {
+            navController.navigateUp()
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_book_list, menu)
         searchItem = menu?.findItem(R.id.item_search)
+        logoutItem = menu?.findItem(R.id.item_logout)
+
+        navController.currentDestination?.let {
+            setMenuOptionsVisibility(it)
+        }
 
         val searchView = menu?.findItem(R.id.item_search)?.actionView as SearchView?
         searchView?.maxWidth = Int.MAX_VALUE
@@ -77,7 +90,23 @@ class BookListActivity : BaseActivity<ActivityBookListBinding>() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
 
+    private fun setMenuOptionsVisibility(destination: NavDestination) {
+        when (destination.id) {
+            R.id.bookListFrag -> {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                searchItem?.isVisible = true
+                logoutItem?.isVisible = true
+            }
 
+            R.id.bookItemFrag -> {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                searchItem?.isVisible = false
+                logoutItem?.isVisible = false
+            }
+        }
     }
 }

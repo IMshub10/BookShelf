@@ -16,4 +16,5 @@
     <string name="authenticate_with_biometric">Complete authentication with your fingerprint!</string>
     <string name="search">Search</string>
     <string name="logout">Logout</string>
+    <string name="tags">Tags</string>
 </resources>

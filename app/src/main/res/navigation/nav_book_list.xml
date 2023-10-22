@@ -9,5 +9,14 @@
         android:id="@+id/bookListFrag"
         android:name="com.summer.bookshelf.ui.screens.book.frags.BookListFrag"
         android:label="BookListFrag"
-        tools:layout="@layout/frag_book_list" />
+        tools:layout="@layout/frag_book_list">
+        <action
+            android:id="@+id/action_bookListFrag_to_bookItemFrag"
+            app:destination="@id/bookItemFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookItemFrag"
+        android:name="com.summer.bookshelf.ui.screens.book.frags.BookItemFrag"
+        android:label="BookItemFrag"
+        tools:layout="@layout/frag_book_item" />
 </navigation>

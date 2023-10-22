@@ -81,4 +81,8 @@ dependencies {
 
     // Biometric android-x
     implementation("androidx.biometric:biometric:1.2.0-alpha05")
+
+    //Flexbox
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+
 }
