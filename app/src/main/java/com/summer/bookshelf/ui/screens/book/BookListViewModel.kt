@@ -61,7 +61,6 @@ class BookListViewModel(
     }
 
     fun bookMark(bookModel: BookModel) {
-        _state.value = BookListState.Loading("Book Marking ${bookModel.title}")
         viewModelScope.launch(Dispatchers.IO) {
             bookRepository.bookMark(bookModel)
             _state.value = BookListState.Idle

@@ -14,7 +14,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabMode="scrollable" />
+            app:tabMode="scrollable"
+            app:tabTextColor="?label" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl_fragBookList_refresh"
