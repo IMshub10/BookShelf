@@ -1,7 +1,9 @@
 package com.summer.bookshelf.utils
 
 import android.text.SpannableString
+import android.view.View
 import androidx.annotation.StringRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.buildSpannedString
@@ -91,6 +93,17 @@ object ViewConvertors {
             .error(R.drawable.ic_launcher_foreground)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(this)
+    }
+
+    @BindingAdapter("setBookmark")
+    @JvmStatic
+    fun AppCompatImageView.setBookmark(isBookmarked: Boolean) {
+        setImageDrawable(
+            AppCompatResources.getDrawable(
+                context,
+                if (isBookmarked) R.drawable.ic_bookmarked else R.drawable.ic_bookmark
+            )
+        )
     }
 
 }

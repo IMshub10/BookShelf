@@ -3,6 +3,8 @@ package com.summer.bookshelf.repositories
 import com.summer.bookshelf.networking.services.BookService
 import com.summer.bookshelf.persistence.db.daos.AppDao
 import com.summer.bookshelf.persistence.db.entities.BookEntity
+import com.summer.bookshelf.persistence.db.entities.UserBookMetaData
+import com.summer.bookshelf.persistence.pref.Preference
 import com.summer.bookshelf.ui.models.BookModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -11,12 +13,13 @@ import java.util.Calendar
 
 class BookRepositoryImpl(
     private val bookService: BookService,
-    private val appDao: AppDao
+    private val appDao: AppDao,
+    private val preference: Preference
 ) : BookRepository {
 
     override fun fetchBooks() = flow {
         try {
-            val localBooks = appDao.getAllBooks()
+            val localBooks = appDao.getAllBooks(preference.getLoggedInUserId())
             if (localBooks.isEmpty()) {
                 val remoteBooks = bookService.fetchBookList()
                 val resultList = mutableListOf<BookModel>()
@@ -36,6 +39,7 @@ class BookRepositoryImpl(
                             title = bean.title,
                             score = bean.score.toString(),
                             year = calendar[Calendar.YEAR],
+                            isBookmarked = false
                         )
                     )
 
@@ -56,15 +60,7 @@ class BookRepositoryImpl(
                     o1 - o2
                 }))
             } else {
-                emit(localBooks.map {
-                    BookModel(
-                        id = it.id,
-                        image = it.image,
-                        title = it.title,
-                        score = it.score.toString(),
-                        year = it.publishedChapterYear
-                    )
-                }.groupBy {
+                emit(localBooks.groupBy {
                     it.year
                 }.toSortedMap(comparator = { o1, o2 ->
                     o1 - o2
@@ -75,5 +71,29 @@ class BookRepositoryImpl(
             emit(hashMapOf<Int, List<BookModel>>())
         }
     }.flowOn(Dispatchers.IO)
+
+    override suspend fun bookMark(bookModel: BookModel) {
+        val userId = preference.getLoggedInUserId()
+        val bookMetaData = appDao.getBookMetaDataByIds(
+            bookId = bookModel.id,
+            userId = userId
+        )
+        if (bookMetaData == null) {
+            appDao.insertIgnoreBookMeta(
+                UserBookMetaData(
+                    userId = userId,
+                    bookId = bookModel.id,
+                    isBookmarked = bookModel.isBookmarked,
+                    tags = emptyList()
+                )
+            )
+        } else {
+            appDao.updateBookMark(
+                userId = userId,
+                bookId = bookModel.id,
+                isBookmarked = bookModel.isBookmarked
+            )
+        }
+    }
 
 }

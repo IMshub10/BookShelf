@@ -43,6 +43,7 @@
                 android:layout_marginTop="@dimen/spacing_small"
                 android:text="@{model.title}"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iv_itemBook_bookmark"
                 app:layout_constraintStart_toEndOf="@+id/iv_itemBook_image"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Tokyo Ghoul " />
@@ -54,16 +55,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_small"
                 android:layout_marginTop="@dimen/spacing_x_small"
-                android:layout_marginBottom="@dimen/spacing_small"
                 android:text="@{model.score}"
                 android:textColor="@color/orange_light"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_itemBook_year"
+                app:layout_constraintBottom_toTopOf="@+id/tv_itemBook_year"
+                app:layout_constraintEnd_toStartOf="@+id/iv_itemBook_bookmark"
                 app:layout_constraintHorizontal_bias="0.52"
                 app:layout_constraintStart_toEndOf="@+id/iv_itemBook_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_itemBook_title"
-                app:layout_constraintVertical_bias="0.0"
                 tools:text="4.5" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -77,13 +75,21 @@
                 android:text="@{String.valueOf(model.year)}"
                 android:textColor="@color/blue_light"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.52"
-                app:layout_constraintStart_toEndOf="@+id/tv_itemBook_score"
-                app:layout_constraintTop_toBottomOf="@+id/tv_itemBook_title"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintEnd_toStartOf="@+id/iv_itemBook_bookmark"
+                app:layout_constraintStart_toEndOf="@+id/iv_itemBook_image"
+                app:layout_constraintTop_toBottomOf="@+id/tv_itemBook_score"
                 tools:text="1999" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_itemBook_bookmark"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="@dimen/spacing_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:setBookmark="@{model.isBookmarked}"
+                tools:src="@drawable/ic_bookmark" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
