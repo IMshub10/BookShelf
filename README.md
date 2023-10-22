@@ -18,7 +18,7 @@ Part 1: User Login-Register Flow
  
  Part 2: Book List
  
- - List of books provided by https://jsonkeeper.com/b/CNGI are sorted by latest published date
+ - The bookshelf app shows a list of books from the following api: https://jsonkeeper.com/b/CNGI
  - Favourite button added to mark a book by distinct user.
  - Search window to filter books by query.
    
