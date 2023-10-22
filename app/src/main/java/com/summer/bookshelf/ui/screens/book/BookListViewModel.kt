@@ -2,6 +2,7 @@ package com.summer.bookshelf.ui.screens.book
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.Query
 import com.summer.bookshelf.repositories.BookRepository
 import com.summer.bookshelf.ui.models.BookModel
 import com.summer.bookshelf.ui.screens.book.states.BookListState
@@ -21,6 +22,8 @@ class BookListViewModel(
     private val _state = MutableStateFlow<BookListState>(BookListState.Idle)
     val state: StateFlow<BookListState> = _state.asStateFlow()
 
+    val searchQuery = MutableStateFlow("")
+
     companion object {
         const val TAG = "BookListViewModel"
     }
@@ -32,8 +35,12 @@ class BookListViewModel(
     val books = _books.asStateFlow()
 
     init {
+        loadBooks("")
+    }
+
+    fun loadBooks(query: String) {
         _state.value = BookListState.Loading("Loading Books")
-        bookRepository.fetchBooks().map {
+        bookRepository.fetchBooks(query).map {
             _booksYears.value = it.keys
             _books.value = it.flatMap { flatMap ->
                 flatMap.value

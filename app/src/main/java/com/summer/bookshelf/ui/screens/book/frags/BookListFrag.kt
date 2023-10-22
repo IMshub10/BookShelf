@@ -68,6 +68,7 @@ class BookListFrag : BaseFragment<FragBookListBinding>() {
 
     private fun setUpTabs(list: Set<Int>) {
         with(mBinding) {
+            tabActBookList.removeAllTabs()
             list.forEach {
                 tabActBookList.addTab(tabActBookList.newTab().setText(it.toString()))
             }

@@ -1,18 +1,14 @@
 package com.summer.bookshelf.ui.screens.book
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.os.Handler
+import android.os.Looper
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import com.summer.bookshelf.R
 import com.summer.bookshelf.base.ui.BaseActivity
 import com.summer.bookshelf.databinding.ActivityBookListBinding
-import com.summer.bookshelf.ui.adapters.BookAdapter
-import com.summer.bookshelf.ui.dialogs.HelperAlertDialog
-import com.summer.bookshelf.ui.models.BookModel
-import com.summer.bookshelf.ui.screens.book.states.BookListState
-import com.summer.bookshelf.ui.screens.user.UserActivity
-import com.summer.bookshelf.utils.LauncherUtils
-import com.summer.bookshelf.utils.extensions.collectLatestFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BookListActivity : BaseActivity<ActivityBookListBinding>() {
@@ -22,6 +18,10 @@ class BookListActivity : BaseActivity<ActivityBookListBinding>() {
 
     private val viewModel: BookListViewModel by viewModel()
 
+    private var searchItem: MenuItem? = null
+
+    private val searchHandler = Handler(Looper.getMainLooper())
+
     override fun onActivityReady(savedInstanceState: Bundle?) {
         setupActionBar(mBinding.tbActBookList)
 
@@ -30,10 +30,54 @@ class BookListActivity : BaseActivity<ActivityBookListBinding>() {
 
     private fun listeners() {
         with(mBinding) {
-            ivActBookListLogout.setOnClickListener {
-                viewModel.logout()
-            }
+
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_book_list, menu)
+        searchItem = menu?.findItem(R.id.item_search)
+
+        val searchView = menu?.findItem(R.id.item_search)?.actionView as SearchView?
+        searchView?.maxWidth = Int.MAX_VALUE
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchHandler.apply {
+                    removeCallbacksAndMessages(null)
+                    postDelayed({
+                        viewModel.loadBooks(query.orEmpty())
+                    }, 1000L)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                searchHandler.apply {
+                    removeCallbacksAndMessages(null)
+                    postDelayed({
+                        viewModel.loadBooks(query.orEmpty())
+                    }, 1000L)
+                }
+                return false
+            }
+        })
+        searchView?.setOnSearchClickListener {
+            mBinding.tbActBookList.title = null
+        }
+        searchView?.setOnCloseListener {
+            mBinding.tbActBookList.title = getString(R.string.app_name)
+            return@setOnCloseListener false
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.item_logout) {
+            viewModel.logout()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+
+
+    }
 }

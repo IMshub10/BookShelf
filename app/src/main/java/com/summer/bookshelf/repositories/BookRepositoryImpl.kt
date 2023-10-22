@@ -17,7 +17,7 @@ class BookRepositoryImpl(
     private val preference: Preference
 ) : BookRepository {
 
-    override fun fetchBooks() = flow {
+    override fun fetchBooks(query: String) = flow {
         try {
             val localBooks = appDao.getAllBooks(preference.getLoggedInUserId())
             if (localBooks.isEmpty()) {
@@ -54,13 +54,17 @@ class BookRepositoryImpl(
                         )
                     )
                 }
-                emit(resultList.groupBy {
+                emit(resultList.filter {
+                    it.title.lowercase().contains(query.lowercase())
+                }.groupBy {
                     it.year
                 }.toSortedMap(comparator = { o1, o2 ->
                     o1 - o2
                 }))
             } else {
-                emit(localBooks.groupBy {
+                emit(localBooks.filter {
+                    it.title.lowercase().contains(query.lowercase())
+                }.groupBy {
                     it.year
                 }.toSortedMap(comparator = { o1, o2 ->
                     o1 - o2
