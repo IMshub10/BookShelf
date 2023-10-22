@@ -19,7 +19,8 @@
 
         <activity
             android:name=".ui.screens.splash.SplashScreenActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +31,8 @@
 
         <activity
             android:name=".ui.screens.user.UserActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ui.screens.book.BookListActivity"
