@@ -39,6 +39,6 @@ Part 1: User Login-Register Flow
 3. To register click on "**register here**".
 4. Use the email & password, or email & biometric to login.
 5. Once logged in, list of books will be loaded from the API and cached.
-6. Use favourite button to mark your favourites.
+6. Mark your favourites by clicking the star icon
 7. Click on an item to view it close.
 8. Use add tag button, to add tags to a book.
