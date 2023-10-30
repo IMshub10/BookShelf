@@ -68,6 +68,14 @@ object ViewConvertors {
     }
 
     @JvmStatic
+    @BindingAdapter("setObfuscation")
+    fun TextInputLayout.setObfuscation(value: Boolean) {
+        if(value){
+            endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter(value = ["required", "hint"], requireAll = true)
     fun TextInputLayout.setHint(required: Boolean, @StringRes hint: Int) {
         this.hint = context.getString(hint)

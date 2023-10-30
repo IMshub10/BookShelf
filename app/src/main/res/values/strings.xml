@@ -9,6 +9,11 @@
     <string name="password">Password</string>
     <string name="invalid_input">Invalid Input</string>
     <string name="invalid_password">Min 8 characters with at least one number, special characters[!@#$%&amp;()],one lowercase letter, and one uppercase letter </string>
+    <string name="missing_lower_alphas">Password missing lower alphabet</string>
+    <string name="missing_upper_alphas">Password missing upper alphabet</string>
+    <string name="missing_numbers">Password missing number</string>
+    <string name="missing_special_characters">Password missing special character</string>
+    <string name="password_must_be_of_8">Password must be of minimum 8 length</string>
     <string name="register">Register</string>
     <string name="save">Save</string>
     <string name="login">Login</string>

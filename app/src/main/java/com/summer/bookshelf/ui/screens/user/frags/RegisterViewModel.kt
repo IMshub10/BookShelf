@@ -8,6 +8,13 @@ import com.summer.bookshelf.repositories.LoginRepository
 import com.summer.bookshelf.ui.inputs.DropdownInputModel
 import com.summer.bookshelf.ui.inputs.TextInputModel
 import com.summer.bookshelf.ui.screens.user.states.RegisterFragState
+import com.summer.bookshelf.utils.RegexConstants
+import com.summer.bookshelf.utils.RegexConstants.containsDigitRegex
+import com.summer.bookshelf.utils.RegexConstants.containsLowerAlphabets
+import com.summer.bookshelf.utils.RegexConstants.containsSpecialCharacter
+import com.summer.bookshelf.utils.RegexConstants.containsUpperAlphabets
+import com.summer.bookshelf.utils.RegexConstants.emailRegex
+import com.summer.bookshelf.utils.RegexConstants.passwordRegex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -40,7 +47,7 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
         hint = R.string.email,
         isRequired = true,
         validator = {
-            it.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}\$".toRegex())
+            it.matches(emailRegex.toRegex())
         },
     )
 
@@ -48,8 +55,9 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
         hint = R.string.password,
         isRequired = true,
         validator = {
-            it.matches("^(?=.*[0-9])(?=.*[!@#\$%&()])(?=.*[a-z])(?=.*[A-Z]).{8,}$".toRegex())
+            it.matches(passwordRegex.toRegex())
         },
+        obfuscateText = true
     )
 
     fun loadCountries() {
@@ -102,7 +110,7 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
         }
 
         if (!passwordInputModel.isValid()) {
-            passwordInputModel.setError(R.string.invalid_password)
+            setPasswordError()
             isValid = false
         }
 
@@ -131,6 +139,21 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
         } else {
             _state.value = RegisterFragState.Idle
         }
+    }
+
+    private fun setPasswordError() {
+        if (passwordInputModel.editTextContent.orEmpty().isEmpty())
+            passwordInputModel.setError(R.string.invalid_password)
+        else if (!passwordInputModel.editTextContent!!.matches(containsDigitRegex.toRegex()))
+            passwordInputModel.setError(R.string.missing_numbers)
+        else if (!passwordInputModel.editTextContent!!.matches(containsLowerAlphabets.toRegex()))
+            passwordInputModel.setError(R.string.missing_lower_alphas)
+        else if (!passwordInputModel.editTextContent!!.matches(containsUpperAlphabets.toRegex()))
+            passwordInputModel.setError(R.string.missing_upper_alphas)
+        else if (!passwordInputModel.editTextContent!!.matches(containsSpecialCharacter.toRegex()))
+            passwordInputModel.setError(R.string.missing_special_characters)
+        else
+            passwordInputModel.setError(R.string.password_must_be_of_8)
     }
 
     companion object {

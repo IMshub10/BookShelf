@@ -27,6 +27,7 @@
             app:errorEnabled="true"
             android:textSize="13sp"
             app:hint="@{inputModel.hint}"
+            app:setObfuscation="@{inputModel.obfuscateText}"
             app:setError="@{inputModel.errorString}"
             app:required="@{inputModel.required}">
 

@@ -45,7 +45,6 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
         binding = null
     }
 
-
     fun showHelperDialog(dialogType: HelperAlertDialog.DialogType = HelperAlertDialog.DialogType.NO_BUTTON) {
         if (helperDialog == null) {
             helperDialog = HelperAlertDialog(dialogType)

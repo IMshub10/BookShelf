@@ -1,5 +1,6 @@
 package com.summer.bookshelf.ui.inputs
 
+import android.text.method.PasswordTransformationMethod
 import androidx.annotation.StringRes
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BaseObservable
@@ -12,6 +13,7 @@ class TextInputModel(
     var singleLine: Boolean = true,
     var isRequired: Boolean = false,
     val validator: (input: String) -> Boolean,
+    val obfuscateText: Boolean = false
 ) : BaseObservable() {
 
     var errorString = MutableStateFlow<Int?>(null)
@@ -47,7 +49,9 @@ class TextInputModel(
         @BindingAdapter("setUpTextEditText")
         @JvmStatic
         fun TextInputEditText.setUpTextEditText(model: TextInputModel) {
-
+            if (model.obfuscateText) {
+                transformationMethod = PasswordTransformationMethod.getInstance()
+            }
             setText(model.editTextContent.orEmpty())
 
             //listeners
