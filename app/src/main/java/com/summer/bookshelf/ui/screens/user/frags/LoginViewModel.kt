@@ -64,10 +64,4 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             _state.value = LoginState.Idle
         }
     }
-
-    fun resetStates() {
-        emailInputModel.setModel("")
-        passwordInputModel.setModel("")
-        _state.value = LoginState.Idle
-    }
 }

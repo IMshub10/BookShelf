@@ -27,12 +27,9 @@ class LoginFrag : BaseFragment<FragLoginBinding>(), BiometricResultListener {
     private val viewModel: LoginViewModel by viewModel()
 
     override fun onFragmentReady(instanceState: Bundle?) {
-
         mBinding.model = viewModel
 
         mBinding.ivFragLoginFingerPrint.isVisible = canAuthenticateWithBiometric()
-
-        viewModel.resetStates()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
