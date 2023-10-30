@@ -60,6 +60,10 @@ class RegisterViewModel(private val loginRepository: LoginRepository) : ViewMode
         obfuscateText = true
     )
 
+    init {
+        loadCountries()
+    }
+
     fun loadCountries() {
         _state.value = RegisterFragState.Loading("Loading Countries")
 

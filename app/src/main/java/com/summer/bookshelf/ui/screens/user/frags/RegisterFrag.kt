@@ -20,14 +20,11 @@ class RegisterFrag : BaseFragment<FragRegisterBinding>() {
 
     override fun onFragmentReady(instanceState: Bundle?) {
         mBinding.model = viewModel
-        viewModel.loadCountries()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observe()
-
         listeners()
     }
 
