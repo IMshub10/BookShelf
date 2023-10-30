@@ -46,13 +46,14 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
     }
 
     fun showHelperDialog(dialogType: HelperAlertDialog.DialogType = HelperAlertDialog.DialogType.NO_BUTTON) {
+        childFragmentManager.executePendingTransactions()
         if (helperDialog == null) {
             helperDialog = HelperAlertDialog(dialogType)
         } else {
             helperDialog?.changeAlertType(dialogType)
         }
         if (helperDialog?.isAdded != true) {
-            helperDialog?.show(childFragmentManager, "")
+            helperDialog?.show(childFragmentManager, null)
         }
     }
 }
