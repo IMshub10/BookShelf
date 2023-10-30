@@ -8,7 +8,7 @@
     <string name="email">E-mail</string>
     <string name="password">Password</string>
     <string name="invalid_input">Invalid Input</string>
-    <string name="invalid_password">Min 8 characters with at least one number, special characters[!@#$%&amp;()],one lowercase letter, and one uppercase letter </string>
+    <string name="invalid_password">Min 8 characters with at least one number, uppercase, lowercase &amp; a special character</string>
     <string name="missing_lower_alphas">Password missing lower alphabet</string>
     <string name="missing_upper_alphas">Password missing upper alphabet</string>
     <string name="missing_numbers">Password missing number</string>
